@@ -49,6 +49,7 @@ function BannerComponent() {
                       <Button
                         className="button-basic signin width-inherit"
                         variant="primary"
+                        href="/signin"
                       >
                         Sign In
                       </Button>

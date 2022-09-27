@@ -1,13 +1,12 @@
 import React from "react";
 import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
 import navLogo from "../../assets/navLogo.png";
-
 function NavBar() {
   return (
     <div className="nav-height shadow">
       <Navbar className="nav-height" collapseOnSelect expand="lg">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img src={navLogo} alt="supergigs-nav-logo" height="15px" />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -24,7 +23,7 @@ function NavBar() {
                   Hire Talents
                 </Button>
               </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
+              <Nav.Link eventKey={2} href="/signin">
                 <Button className="button-basic signin" variant="primary">
                   Sign In
                 </Button>

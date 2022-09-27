@@ -37,11 +37,19 @@ function App() {
     //   });
   }, []);
   return (
-    <div>
-      <NavBar />
-      <MainComponent />
-      <Footer />
-    </div>
+    
+      <div>
+       
+        <NavBar />
+        <MainComponent />
+        {/* <SignIn/>  */}
+       
+        <Footer />
+        
+                
+      </div>
+     
+    
   );
 }
 
