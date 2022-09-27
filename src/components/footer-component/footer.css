@@ -1,0 +1,40 @@
+:root {
+  --background: #1c3892;
+  --font-zize11: 23px;
+}
+
+.footer-background {
+  background: var(--background);
+}
+
+.main-links,
+.logo-section {
+  padding-top: 4rem;
+}
+
+.rounded-circle {
+  border: 1px solid white;
+  color: white;
+  padding: 2px 6px;
+}
+
+.icon-size {
+  font-size: var(--font-zize11);
+}
+.copyrights {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.copyrights-text {
+  font-size: 11px;
+}
+
+.ul-link-names {
+  color: white;
+  font-size: 11px;
+}
+
+.ul-link-names li {
+  padding: 10px 5px 0 0;
+}

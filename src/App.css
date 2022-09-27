@@ -1,38 +1,60 @@
-.App {
-  text-align: center;
+:root {
+  --button-color: #1c3892;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-red: red;
+  --button-background: #ffff;
+  --font-size11: 11px;
+  --button-background-linear-gradient: linear-gradient(
+    90deg,
+    var(--button-color) 0%,
+    #0885b3 100%
+  );
+  --text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
+    0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.nav-height {
+  min-height: 10vh;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.main-content-height {
+  min-height: 90vh;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.button-basic {
+  background: var(--color-white);
+  border-radius: 5px;
+  color: var(--button-color);
+  font-size: var(--font-size11);
+  border: 1px solid var(--button-color);
 }
 
-.App-link {
-  color: #61dafb;
+.button-basic.signin {
+  background: var(--button-background-linear-gradient);
+  border-radius: 5px;
+  color: var(--color-white);
+  text-shadow: var(--text-shadow);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.bannerImage {
+  height: 30rem;
+}
+
+.banner-heading {
+  font-size: 2.5em;
+  background: linear-gradient(90deg, #1a3387 0%, #0885b3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* color: var(--button-background-linear-gradient) !important; */
+}
+.width-inherit {
+  width: inherit;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: var(--button-color);
 }
