@@ -29,6 +29,21 @@
       format("svg");
 }
 
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #141619;
+  background-color: #F5F5F5;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 0.375rem;
+  transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 .nav-height {
   min-height: 10vh;
 }
@@ -36,7 +51,52 @@
 .main-content-height {
   min-height: 90vh;
 }
+.separator-line{
 
+  width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #E3EDF4; 
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+}
+
+.separator-line span{
+
+  background:#fff; 
+    padding:0 10px; 
+}
+.signin-button-linkedin {
+  background: var(--color-white);
+  border-radius: 5px;
+  color: #0E76A8;
+  font-size: var(--font-size11);
+  border: 1px solid #0E76A8;
+  width: 45%;
+}
+
+.signin-button-google {
+  background: var(--color-white);
+  border-radius: 5px;
+  color: #DB4437;
+  font-size: var(--font-size11);
+  border: 1px solid #DB4437;
+  width: 45%;
+}
+
+
+.signIn-outer-div {
+  padding-left: 25vw;
+  padding-right: 10vw;
+}
+.closeButton{
+    float: right;
+    cursor: pointer;
+}
+
+.signIn-inner-div{
+
+  padding: 2vw;
+}
 .button-basic {
   background: var(--color-white);
   border-radius: 5px;
@@ -45,6 +105,11 @@
   border: 1px solid var(--button-color);
 }
 
+.linkedIn-icon {
+  border: 1px solid #0E76A8;
+  color: #0E76A8;
+  padding: 2px 6px;
+}
 .button-basic.signin {
   background: var(--button-background-linear-gradient);
   border-radius: 5px;
@@ -55,7 +120,22 @@
 .bannerImage {
   height: 30rem;
 }
+.signinImage-div{
 
+  width: min-content;
+}
+.signinBannerImage {
+  height: 20rem;
+}
+
+.signIn-font{
+
+  color:#1C3892
+}
+
+.signIn-left{
+  background: #1C3892;
+}
 .banner-heading {
   font-size: 2.5em;
   background: linear-gradient(90deg, #1a3387 0%, #0885b3 100%);
