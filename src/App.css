@@ -13,6 +13,21 @@
   --text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
     0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+@import url(//db.onlinewebfonts.com/c/02408ccd8efcf169db4e41d6e0551118?family=NeueKabelW01-Regular);
+@font-face {
+  font-family: "NeueKabelW01-Regular";
+  src: url("//db.onlinewebfonts.com/t/02408ccd8efcf169db4e41d6e0551118.eot");
+  src: url("//db.onlinewebfonts.com/t/02408ccd8efcf169db4e41d6e0551118.eot?#iefix")
+      format("embedded-opentype"),
+    url("//db.onlinewebfonts.com/t/02408ccd8efcf169db4e41d6e0551118.woff2")
+      format("woff2"),
+    url("//db.onlinewebfonts.com/t/02408ccd8efcf169db4e41d6e0551118.woff")
+      format("woff"),
+    url("//db.onlinewebfonts.com/t/02408ccd8efcf169db4e41d6e0551118.ttf")
+      format("truetype"),
+    url("//db.onlinewebfonts.com/t/02408ccd8efcf169db4e41d6e0551118.svg#NeueKabelW01-Regular")
+      format("svg");
+}
 
 .nav-height {
   min-height: 10vh;
