@@ -57,6 +57,12 @@
   width: 45%;
 }
 
+.signin-button-linkedin:hover {
+  background: #0e76a8 !important;
+  color: #fff !important;
+  border: 1px solid #0e76a8 !important;
+}
+
 .signin-button-google {
   background: var(--color-white);
   border-radius: 5px;
@@ -66,6 +72,13 @@
   width: 45%;
 }
 
+.signin-button-google:hover {
+  background: #db4437 !important;
+  border-radius: 5px;
+  color: white !important;
+  font-size: var(--font-size11);
+  border: 1px solid #db4437 !important;
+}
 .signIn-outer-div {
   padding-left: 25vw;
   padding-right: 10vw;
@@ -131,4 +144,45 @@
 
 .carousel-indicators [data-bs-target] {
   background-color: var(--button-color);
+}
+
+#find-gigs-tile-unclicked {
+  width: 40%;
+  background: #e3edf4;
+  cursor: pointer;
+  color: #6b6b6b;
+}
+
+#find-gigs-tile-clicked {
+  width: 40%;
+  background: linear-gradient(90deg, var(--button-color) 0%, #0885b3 100%);
+  cursor: pointer;
+  color: white;
+}
+
+#hire-talent-tile-unclicked {
+  width: 40%;
+  background: #e3edf4;
+  float: inline-end;
+  cursor: pointer;
+  border-radius: 1px solid;
+  color: #6b6b6b;
+}
+#hire-talent-tile-clicked {
+  width: 40%;
+  background: linear-gradient(90deg, var(--button-color) 0%, #0885b3 100%);
+  float: inline-end;
+  color: white;
+  cursor: pointer;
+}
+.freelancerLogo {
+  height: 75%;
+}
+
+.signup-visible {
+  visibility: visible;
+}
+
+.signup-hidden {
+  visibility: hidden;
 }
