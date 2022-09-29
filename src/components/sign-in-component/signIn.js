@@ -82,7 +82,7 @@ sed do eiusmod tempor incididunt ut labore et</p></div>
               Remember me
             </label>
             <p className="forgot-password text-right float-end">
-          <a href="#"> Forgot password?</a>
+          <a href="#" className='signIn-font'> Forgot password?</a>
         </p>
             </div>
            
@@ -96,7 +96,7 @@ sed do eiusmod tempor incididunt ut labore et</p></div>
        
       </form>
       <div> 
-        <p className='text-center pt-3'> Don't have an account? <a href="#" className='signIn-font'><strong>Sign Up </strong> </a></p>
+        <p className='text-center pt-3'> Don't have an account? <a href="/signup" className='signIn-font'><strong>Sign Up </strong> </a></p>
       </div>
         </div>
         </div>

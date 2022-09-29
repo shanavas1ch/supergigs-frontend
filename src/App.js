@@ -41,9 +41,7 @@ function App() {
       <div>
        
         <NavBar />
-        <MainComponent />
-        {/* <SignIn/>  */}
-       
+        <MainComponent />       
         <Footer />
         
                 
