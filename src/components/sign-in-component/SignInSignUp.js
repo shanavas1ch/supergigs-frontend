@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import SignInBannerComponent from "../banner-component/SignInBannerComponent";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignIn from "./signIn";
+import SignUp from "./signup";
 
 function SignInSignUp() {
   const [showSignIn, setShowSignIn] = useState(true);
