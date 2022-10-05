@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useState} from "react";
 import { Button } from "react-bootstrap";
 import { FaLinkedinIn, FaGoogle, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -8,6 +8,45 @@ import SignInBannerComponent from "../banner-component/SignInBannerComponent";
 import "./signin.css";
 
 function SignIn({ handleSignUpClick }) {
+
+  const [signInDetails, setSignInDetails] = useState({
+
+    username: "",
+    password: ""
+});
+
+const onSignInClick = (e) => {
+    e.preventDefault()
+    userLogin(signInDetails);
+
+}
+
+const userLogin = (credentials) => {
+
+    fetch(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          credentials
+        }),
+      })
+        .then((response) => response)
+        .then((data) => {
+
+          if(data.status === 401){
+
+            alert("user doesn't exist!");
+          } 
+
+          if(data.status === 200){
+
+            alert("successfully logged in!");
+          }   
+        })
+}
+
   return (
     <div className="p-5">
       <div className="signIn-inner-div  ">
@@ -47,6 +86,12 @@ function SignIn({ handleSignUpClick }) {
                 type="email"
                 className="form-control"
                 placeholder="Enter Email Id"
+                onChange={(e) => {
+                  setSignInDetails({
+                    ...signInDetails,
+                    username: e.target.value,
+                  })}
+              }
               />
             </div>
             <div className="mb-3">
@@ -55,6 +100,12 @@ function SignIn({ handleSignUpClick }) {
                 type="password"
                 className="form-control"
                 placeholder="Enter password"
+                onChange={(e) => {
+                  setSignInDetails({
+                    ...signInDetails,
+                    password: e.target.value,
+                  })}
+              }
               />
             </div>
             <div className="mb-3">
@@ -78,6 +129,7 @@ function SignIn({ handleSignUpClick }) {
               <button
                 type="submit"
                 className="btn btn-primary button-basic signin"
+                onClick={onSignInClick}
               >
                 SIGN IN
               </button>

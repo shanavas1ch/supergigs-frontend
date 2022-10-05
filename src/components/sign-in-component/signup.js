@@ -3,7 +3,7 @@ import { React, useState } from "react";
 import { FaGoogle, FaLinkedinIn, FaTimes } from "react-icons/fa";
 import signinFreelancer from "../../assets/signin-Freelancer.png";
 import signinHireTalent from "../../assets/signin-hire-talent.png";
-import SignIn from "./SignIn";
+import SignIn from "./signIn";
 import "./signin.css";
 import { Link } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
