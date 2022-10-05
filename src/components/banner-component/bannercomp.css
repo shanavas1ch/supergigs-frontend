@@ -1,0 +1,34 @@
+.carousal {
+  height: 52vh;
+}
+
+.bannerImage {
+  height: 65%;
+}
+.banner-heading {
+  padding-top: 8rem;
+  font-size: 2.5em;
+  background: linear-gradient(90deg, #1a3387 0%, #0885b3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* color: var(--button-background-linear-gradient) !important; */
+}
+
+.carousel-indicators {
+  position: absolute;
+  right: 0;
+  top: 32rem;
+}
+
+.sigin-banner .carousel-indicators {
+  position: absolute;
+  right: 0;
+  top: 27rem;
+}
+
+.sigin-banner .carousel-indicators [data-bs-target] {
+  background-color: white;
+}

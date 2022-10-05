@@ -5,6 +5,10 @@ import "./App.css";
 import NavBar from "./components/navbar-component/NavBar";
 import Footer from "./components/footer-component/Footer";
 import MainComponent from "./components/main-component/MainComponent";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignIn from "./components/sign-in-component/SignInSignUp";
+import SignUp from "./components/sign-in-component/SignUp";
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
   const [res, setResp] = useState([]);
@@ -37,17 +41,15 @@ function App() {
     //   });
   }, []);
   return (
-    
-      <div>
-       
-        <NavBar />
-        <MainComponent />       
-        <Footer />
-        
-                
-      </div>
-     
-    
+    <div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<SignUp />} />
+        </Routes>
+      </Router>
+    </div>
   );
 }
 

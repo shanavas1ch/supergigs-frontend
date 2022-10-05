@@ -1,0 +1,38 @@
+.main-container {
+  min-height: 100vh;
+}
+
+.signIn-inner-div {
+  padding: 5vw;
+}
+.font-align-center {
+  position: relative;
+  top: 1px;
+}
+.align-center-rememberme {
+  position: relative;
+  bottom: 3px;
+}
+.sign-up-card {
+  width: 10rem;
+  padding-top: 1rem;
+  display: flex;
+  align-items: center;
+  border: none;
+}
+.freelancerLogo {
+  height: 55px;
+  width: 50px;
+}
+.signup-card-button {
+  background: none;
+  padding: 0px;
+}
+.signup-card-button:hover {
+  background: none !important;
+}
+.signup-wrapper {
+  padding: 1rem 2rem;
+}
+.signup-active-form-wrapper {
+}
