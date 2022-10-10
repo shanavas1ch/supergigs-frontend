@@ -6,6 +6,8 @@ import bannerImage2 from "../../assets/bannerImage2.png";
 import bannerImage3 from "../../assets/bannerImage3.png";
 import "./bannercomp.css";
 import { Link } from "react-router-dom";
+import { bannerContent } from "../../contents/landing-page/banner-content";
+
 
 function BannerComponent() {
   return (
@@ -24,15 +26,17 @@ function BannerComponent() {
             <div className="col-xs-12 col-sm-12 col-md-5 col-lg-5 ">
               <h3 className="banner-heading">
                 <strong>
-                  The World's Agile Talent Platform that perfectly fits your
-                  business needs.
+                  {/* The World's Agile Talent Platform that perfectly fits your
+                  business needs. */}
+                  {bannerContent.banner1.mainText}
                 </strong>
               </h3>
               <br />
               <span>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
+                {/* Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s.
+                text ever since the 1500s. */}
+                {bannerContent.banner1.subText}
               </span>
               <br />
               <br />
@@ -75,17 +79,19 @@ function BannerComponent() {
               <div className=" ">
                 <h3 className="banner-heading">
                   <strong>
-                    The World's Agile Talent Platform that perfectly fits your
-                    business needs.
+                    {/* The World's Agile Talent Platform that perfectly fits your
+                    business needs. */}
+                    {bannerContent.banner2.mainText}
                   </strong>
                 </h3>
                 <br />
                 <span>
-                  Lorem Ipsum is simply dummy text of the printing and
+                  {/* Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
                   printer took a galley of type and scrambled it to make a type
-                  specimen book
+                  specimen book */}
+                  {bannerContent.banner2.subText}
                 </span>
                 <br />
                 <br />
@@ -129,17 +135,19 @@ function BannerComponent() {
               <div className=" ">
                 <h3 className="banner-heading">
                   <strong>
-                    The World's Agile Talent Platform that perfectly fits your
-                    business needs.
+                    {/* The World's Agile Talent Platform that perfectly fits your
+                    business needs. */}
+                    {bannerContent.banner3.mainText}
                   </strong>
                 </h3>
                 <br />
                 <span>
-                  Lorem Ipsum is simply dummy text of the printing and
+                  {/* Lorem Ipsum is simply dummy text of the printing and
                   typesetting industry. Lorem Ipsum has been the industry's
                   standard dummy text ever since the 1500s, when an unknown
                   printer took a galley of type and scrambled it to make a type
-                  specimen book
+                  specimen book */}
+                  {bannerContent.banner3.subText}
                 </span>
                 <br />
                 <br />

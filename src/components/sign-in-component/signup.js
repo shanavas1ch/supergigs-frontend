@@ -1,11 +1,10 @@
-import { Button, Card } from "react-bootstrap";
 import { React, useState } from "react";
-import { FaGoogle, FaLinkedinIn, FaTimes } from "react-icons/fa";
+import { Button, Card } from "react-bootstrap";
+import { FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import signinFreelancer from "../../assets/signin-Freelancer.png";
 import signinHireTalent from "../../assets/signin-hire-talent.png";
-import SignIn from "./SignIn";
 import "./signin.css";
-import { Link } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
 function SignUp({ handleSignUpClick }) {
   const [classForGigs, setClassForGigs] = useState("");
