@@ -3,7 +3,7 @@
 }
 
 .signIn-inner-div {
-  padding: 5vw;
+  padding: 0;
 }
 .font-align-center {
   position: relative;
@@ -14,7 +14,6 @@
   bottom: 3px;
 }
 .sign-up-card {
-  width: 10rem;
   padding-top: 1rem;
   display: flex;
   align-items: center;
@@ -27,6 +26,7 @@
 .signup-card-button {
   background: none;
   padding: 0px;
+  width: 100%;
 }
 .signup-card-button:hover {
   background: none !important;
@@ -34,5 +34,22 @@
 .signup-wrapper {
   padding: 1rem 2rem;
 }
-.signup-active-form-wrapper {
+.align-margin {
+  margin-right: 3em;
+}
+.success-message {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.success-icon {
+  font-size: 2.5em;
+}
+.width-60 {
+  width: 61%;
+}
+
+.success-fontsize {
+  font-size: 1.2rem;
 }

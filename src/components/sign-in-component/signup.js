@@ -7,7 +7,7 @@ import SignIn from "./SignIn";
 import "./signin.css";
 import { Link } from "react-router-dom";
 import SignUpForm from "./SignUpForm";
-function SignUp() {
+function SignUp({ handleSignUpClick }) {
   const [classForGigs, setClassForGigs] = useState("");
   const [classForTalent, setClassForTalent] = useState("");
   const [textWhiteGigs, setTextWhiteGigs] = useState("");
@@ -30,8 +30,8 @@ function SignUp() {
   return (
     <>
       <div>
-        <div className="">
-          <div className="signup-wrapper ">
+        <div className="pt-4">
+          <div className=" ">
             <div>
               {" "}
               <Link to="/">
@@ -46,54 +46,53 @@ function SignUp() {
               <small className=""> Sign in and get access to GIG</small>
             </div>
             <br />
-            <div className="row">
-              <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"></div>
-              <div className="col-sm-12 col-md-5 col-lg-5 col-xl-5">
-                <Button
-                  className="signup-card-button"
-                  onClick={() => handleClickForGigs("Gigs")}
-                >
-                  <Card className={"sign-up-card " + classForGigs}>
-                    <Card.Img
-                      variant="top"
-                      src={signinFreelancer}
-                      className="freelancerLogo "
-                    />
-                    <small
-                      className={
-                        "text-center cursor-pointer signIn-font pt-1 pb-1 " +
-                        textWhiteGigs
-                      }
-                    >
-                      Find GIGS
-                    </small>
-                  </Card>
-                </Button>
-              </div>
-              <div className="col-sm-12 col-md-5 col-lg-5 col-xl-5">
-                <Button
-                  className="signup-card-button"
-                  onClick={() => handleClickForGigs("Talents")}
-                >
-                  <Card className={"sign-up-card " + classForTalent}>
-                    <Card.Img
-                      variant="top"
-                      src={signinHireTalent}
-                      className="freelancerLogo "
-                    />
 
-                    <small
-                      className={
-                        "text-center cursor-pointer signIn-font pt-1 pb-1 " +
-                        textWhiteTalent
-                      }
-                    >
-                      Hire Talents
-                    </small>
-                  </Card>
-                </Button>
-              </div>
+            <div className="d-flex">
+              <Button
+                className="signup-card-button align-margin"
+                onClick={() => handleClickForGigs("Gigs")}
+              >
+                <Card className={"sign-up-card " + classForGigs}>
+                  <Card.Img
+                    variant="top"
+                    src={signinFreelancer}
+                    className="freelancerLogo "
+                  />
+                  <small
+                    className={
+                      "text-center cursor-pointer signIn-font pt-1 pb-1 " +
+                      textWhiteGigs
+                    }
+                  >
+                    Find GIGS
+                  </small>
+                </Card>
+              </Button>
+
+              <Button
+                className="signup-card-button"
+                onClick={() => handleClickForGigs("Talents")}
+              >
+                <Card className={"sign-up-card " + classForTalent}>
+                  <Card.Img
+                    variant="top"
+                    src={signinHireTalent}
+                    className="freelancerLogo "
+                  />
+
+                  <small
+                    className={
+                      "text-center cursor-pointer signIn-font pt-1 pb-1 " +
+                      textWhiteTalent
+                    }
+                  >
+                    Hire Talents
+                  </small>
+                </Card>
+              </Button>
+              {/* </div> */}
             </div>
+
             {classForGigs == "show-active-gigs" ||
             classForTalent == "show-active-talent" ? (
               <>
@@ -108,7 +107,8 @@ function SignUp() {
       <div className="text-center">
         <small className="text-center cursor-pointer signIn-font pt-3">
           {" "}
-          I have an account <strong>Sign In </strong>{" "}
+          I have an account{" "}
+          <strong onClick={handleSignUpClick}>Sign In </strong>{" "}
         </small>
       </div>
     </>

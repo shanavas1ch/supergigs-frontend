@@ -9,12 +9,18 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignIn from "./components/sign-in-component/SignInSignUp";
 import SignUp from "./components/sign-in-component/SignUp";
 import LandingPage from "./pages/LandingPage/LandingPage";
+import FreeLancerComponentOne from "./components/freelancer/FreeLancerComponentOne";
+import { useDispatch } from "react-redux";
+import { startAction } from "./actions/sampleactions";
+import FreeLancerComponentTwo from "./components/freelancer/FreeLancerComponentTwo";
 
 function App() {
   const [res, setResp] = useState([]);
   const [resOne, setRespOne] = useState([]);
-
+  const dispatch = useDispatch();
   useEffect(() => {
+    const che = dispatch(startAction("check"));
+    console.log("che : ", che);
     // fetch("http://localhost:5000/comments")
     //   .then((response) => response.json())
     //   .then((response) => {
@@ -47,6 +53,14 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route
+            path="/freelancer/page1"
+            element={<FreeLancerComponentOne />}
+          />
+          <Route
+            path="/freelancer/page2"
+            element={<FreeLancerComponentTwo />}
+          />
         </Routes>
       </Router>
     </div>

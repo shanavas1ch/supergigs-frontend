@@ -1,0 +1,41 @@
+.vl {
+  border-left: 2px solid grey;
+  height: 15px;
+  position: relative;
+  right: -3px;
+}
+
+.image-icon {
+  height: 1.1rem;
+}
+.profile-completion {
+  padding-top: 1rem;
+}
+.progress-bar {
+  padding-bottom: 1rem;
+}
+.progress {
+  height: 0.3rem;
+}
+img.g-loading {
+  height: 6rem;
+}
+.margin-right {
+  margin-right: 1rem;
+}
+.profile-box {
+  background: #e3edf4;
+  padding: 0.1rem 0.7rem;
+  font-size: 2.5rem;
+  margin-right: 1rem;
+}
+.upload-font-size {
+  font-size: 0.5rem;
+}
+.form-check {
+  text-align: center;
+}
+.form-check-input[type="radio"] {
+  border-radius: 50%;
+  float: right;
+}
