@@ -1,18 +1,16 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 import React, { useEffect, useState } from "react";
-import "./App.css";
-import NavBar from "./components/navbar-component/NavBar";
-import Footer from "./components/footer-component/Footer";
-import MainComponent from "./components/main-component/MainComponent";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import SignIn from "./components/sign-in-component/SignInSignUp";
-import SignUp from "./components/sign-in-component/SignUp";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import FreeLancerComponentOne from "./components/freelancer/FreeLancerComponentOne";
 import { useDispatch } from "react-redux";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { startAction } from "./actions/sampleactions";
+import "./App.css";
+import FreeLancerComponentOne from "./components/freelancer/FreeLancerComponentOne";
 import FreeLancerComponentTwo from "./components/freelancer/FreeLancerComponentTwo";
+import SignInSignUp from "./components/sign-in-component/SignInSignUp";
+import SignUp from "./components/sign-in-component/SignUp";
+
+import LandingPage from "./pages/LandingPage/LandingPage";
 
 function App() {
   const [res, setResp] = useState([]);
@@ -51,7 +49,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signin" element={<SignInSignUp />} />
           <Route path="/signup" element={<SignUp />} />
           <Route
             path="/freelancer/page1"
