@@ -1,9 +1,20 @@
-import React from "react";
+import { useEffect } from "react";
+import {React, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import gLoadingOne from "../../../assets/g-loading-1.png";
 import imageIcon from "../../../assets/image-icon.png";
-
+import "../../../App.css";
+import loaderSuperman from "../../../assets/loader-superman.png"
 function Page1Section1() {
+
+  const [iconPosition, setIconPosition] = useState(0);
+  
+  let progress = 10;
+  
+  useEffect(() => {
+    setIconPosition(progress - 7)
+  },[iconPosition,progress])
+  
   return (
     <div>
       {" "}
@@ -16,12 +27,15 @@ function Page1Section1() {
         </div>
         <div className="profile-completion d-flex justify-content-between">
           <p className="smaller-text">Profile Completion Progress</p>
-          <small>10%</small>
+          <small>{progress}%</small>
         </div>
         <div className="progress-bar">
-          <ProgressBar now={10} />
+          <ProgressBar now={progress} />
+         
         </div>
-        <div className="bread-crumb-menu">
+        <div >
+            <img className={"loader-superman-size"} style={{position:"relative",left:iconPosition+"%"}} src={loaderSuperman} />  </div>
+        <div className="bread-crumb-menu mt-2">
           <div>
             <div className="mt-2">
               <div className="d-flex">
