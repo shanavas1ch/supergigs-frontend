@@ -5,12 +5,17 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import Page1Section1 from "../../pages/freelancer/Page1/Page1Section1";
 import Page1Section2 from "../../pages/freelancer/Page1/Page1Section2";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-function FreeLancerComponentOne() {
+function FreeLancerComponentOne(props) {
   const navigate = useNavigate();
   const handleClickSave = () => {
     navigate("/freelancer/page2");
   };
+
+  useEffect(() => {
+    console.log(props);
+  },[])
   return (
     <div>
       <NavBar />

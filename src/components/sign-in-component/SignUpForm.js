@@ -1,8 +1,24 @@
-import React from "react";
+import {React, useState } from "react";
 import { Button } from "react-bootstrap";
 import { FaGoogle, FaLinkedinIn } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
+
+  const [userSignUpData, setUserSignUpData] = useState();
+  const navigate = useNavigate();
+
+  const userSignUp = (e) => {
+    e.preventDefault();  
+    fetch("http://localhost:4000/data")
+    .then((response) => response.json())
+    .then((response) => {
+      setUserSignUpData(response);
+      navigate('/freelancer/page1', { state: {userData : response} });
+    }
+    )
+    
+  }
   return (
     <div>
       {" "}
@@ -64,12 +80,15 @@ function SignUpForm() {
                 </div>
               </div>
               <div className="d-grid pt-2">
+              
                 <button
                   type="submit"
                   className="btn btn-primary button-basic signin"
+                  onClick={userSignUp}
                 >
                   SIGN UP
                 </button>
+                
               </div>
             </form>
           </div>

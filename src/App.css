@@ -13,6 +13,7 @@
   --text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
     0px 4px 4px rgba(0, 0, 0, 0.25);
   --success: #47ab8e;
+  --failue: var(--color-red)
 }
 
 a {
@@ -192,4 +193,8 @@ p.signIn-font {
 }
 .verified-success {
   color: var(--success);
+}
+
+.verified-failure{
+  color: var(--failue);
 }

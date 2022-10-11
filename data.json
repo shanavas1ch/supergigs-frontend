@@ -15,5 +15,44 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+
+    "data": {
+      "id": "3c073fae-6172-4e75-8b92-f560d58cd47c",
+      "type": "currentUser",
+      "attributes": {
+        "banned": false,
+        "deleted": false,
+        "createdAt": "2018-03-28T09:12:58.866Z",
+        "email": "joe.dunphy@example.com",
+        "emailVerified": false,
+        "pendingEmail": null,
+        "stripeConnected": false,
+        "stripePayoutsEnabled": false,
+        "stripeChargesEnabled": false,
+        "identityProviders": {
+          "facebook": {
+            "userId": "11223344"
+          }
+        },
+        "profile": {
+          "firstName": "Joe",
+          "lastName": "Dunphy",
+          "displayName": "Dunphy Co.",
+          "abbreviatedName": "JD",
+          "bio": "Hello, I am Joe.",
+          "publicData": {
+            "age": 27
+          },
+          "protectedData": {
+            "phoneNumber": "+1-202-555-5555"
+          },
+          "privateData": {
+            "discoveredServiceVia": "Twitter"
+          },
+          "metadata": {}
+        }
+      }
+    }
+  
 }
