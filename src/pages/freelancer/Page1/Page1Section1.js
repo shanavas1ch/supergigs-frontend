@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ProgressBar } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { startAction } from "../../../actions/sampleactions";
 import gLoadingOne from "../../../assets/g-loading-1.png";
 import imageIcon from "../../../assets/image-icon.png";
 
 function Page1Section1() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(startAction("check")).then((resp) => {
+      console.log(resp);
+    });
+  }, []);
   return (
     <div>
       {" "}

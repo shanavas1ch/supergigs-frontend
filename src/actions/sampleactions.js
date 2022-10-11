@@ -1,8 +1,8 @@
-import { SAMPLE } from "./types";
+import { useDispatch } from "react-redux";
+import { DATA, SAMPLE } from "./types";
 
-export const startAction = (message) => {
-  return {
-    type: SAMPLE,
-    payload: message,
-  };
+export const startAction = () => async (dispatch) => {
+  const data = { name: "ajay" };
+  dispatch({ type: SAMPLE, payload: data });
+  return "success";
 };
