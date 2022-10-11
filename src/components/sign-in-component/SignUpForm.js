@@ -1,8 +1,40 @@
-import React from "react";
+import { React, useState } from "react";
 import { Button } from "react-bootstrap";
 import { FaGoogle, FaLinkedinIn } from "react-icons/fa";
 
 function SignUpForm() {
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [signUpDetails, setSignUpDetails] = useState({
+    username: "",
+    password: "",
+  });
+
+  const onSignUpClick = (e) => {
+    e.preventDefault();
+    userSignUp(signUpDetails);
+  };
+  const userSignUp = (credentials) => {
+    fetch(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        credentials,
+      }),
+    })
+      .then((response) => response)
+      .then((data) => {
+        if (data.status === 200) {
+          setIsRegistered(true);
+        } else if (data.status === 409) {
+          alert("username already exists!");
+        } else {
+          alert(data.statusText + " " + data.status + " " + "error");
+        }
+      });
+  };
+
   return (
     <div>
       {" "}
