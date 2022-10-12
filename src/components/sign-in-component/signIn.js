@@ -1,15 +1,14 @@
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+// import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
-import { useState } from "react";
 import { Button } from "react-bootstrap";
+import GoogleLogin from "react-google-login";
 import { FaGoogle, FaLinkedinIn, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import "./signin.css";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
-import linkedin from "react-linkedin-login-oauth2/assets/linkedin.png";
-import { useGoogleLogin } from "@react-oauth/google";
+import { Link, useNavigate } from "react-router-dom";
+import "./signin.css";
 
 function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
+  const navigate = useNavigate();
   const onSuccess = (e) => {
     console.log("Google Login Success >>", e);
   };
@@ -17,12 +16,12 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
     console.log("Google Login Failure >>", e);
   };
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => console.log(codeResponse),
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  // const login = useGoogleLogin({
+  //   onSuccess: (codeResponse) => console.log(codeResponse),
+  //   onError: (error) => {
+  //     console.log(error);
+  //   },
+  // });
   const { linkedInLogin } = useLinkedIn({
     clientId: "86vhj2q7ukf83q",
     redirectUri: `${window.location.origin}/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
@@ -33,6 +32,9 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
       console.log(error);
     },
   });
+  const handleSignClick = () => {
+    navigate("/find-gigs");
+  };
 
   return (
     <div className="pt-5 mt-5">
@@ -47,37 +49,43 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
       <div className="text-center">
         <small className=""> Sign in and get access to GIG</small>
       </div>
-      <div className="pt-3 pb-3 d-flex justify-content-between">
+      <div className="pt-3 pb-3 row">
         <Button
-          className="signin-button-linkedin "
+          className="col signin-button-linkedin margin-right"
           variant="primary"
           onClick={linkedInLogin}
         >
           <FaLinkedinIn className="" /> &nbsp;
           <span className="font-align-center">Login using LinkedIn</span>
         </Button>
-        {/* <img
-          onClick={linkedInLogin}
-          src={linkedin}
-          alt="Sign in with Linked In"
-          style={{ maxWidth: "180px", cursor: "pointer" }}
-        /> */}
 
-        <Button
+        {/* <Button
           className="signin-button-google float-end"
           variant="primary"
           onClick={login}
         >
           <FaGoogle className="" />
           &nbsp; <span className="font-align-center">Login using Google</span>
-        </Button>
-        <GoogleLogin
-          // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
-
-          onSuccess={onSuccess}
-          onFailure={onFailure}
-          cookiePolicy={"single_host_origin"}
-        />
+        </Button> */}
+        <div className="col">
+          <GoogleLogin
+            onSuccess={onSuccess}
+            clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com"
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+            render={(renderProps) => (
+              <Button
+                className="signin-button-google w-100"
+                variant="primary"
+                onClick={renderProps.onClick}
+              >
+                <FaGoogle className="" />
+                &nbsp;{" "}
+                <span className="font-align-center">Login using Google</span>
+              </Button>
+            )}
+          />
+        </div>
         {/* </GoogleOAuthProvider> */}
         {/* <Button className="signin-button-google float-end" variant="primary">
           <FaGoogle className="" />
@@ -145,6 +153,7 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
             <button
               type="submit"
               className="btn btn-primary button-basic signin"
+              onClick={handleSignClick}
             >
               SIGN IN
             </button>

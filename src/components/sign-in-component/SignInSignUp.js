@@ -101,13 +101,16 @@ function SignInSignUp() {
             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"></div>
             <div className="col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
               {showSignIn && (
-                <GoogleOAuthProvider clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com">
-                  <SignIn
-                    handleSignUpClick={handleSignUpClick}
-                    handleSubmit={handleSubmit}
-                    handleTextChange={handleTextChange}
-                  />
-                </GoogleOAuthProvider>
+                // <GoogleOAuthProvider
+                //   // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
+                //   clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com"
+                // >
+                <SignIn
+                  handleSignUpClick={handleSignUpClick}
+                  handleSubmit={handleSubmit}
+                  handleTextChange={handleTextChange}
+                />
+                // </GoogleOAuthProvider>
               )}
               {showSignUp && <SignUp handleSignUpClick={handleSignUpClick} />}
             </div>

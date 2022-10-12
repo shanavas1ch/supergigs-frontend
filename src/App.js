@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { startAction } from "./actions/sampleactions";
 import "./App.css";
+import FindGigsLandingPage from "./components/find-gigs/FindGigsLandingPage";
 import FreeLancerComponentOne from "./components/freelancer/FreeLancerComponentOne";
 import FreeLancerComponentTwo from "./components/freelancer/FreeLancerComponentTwo";
 import SignInSignUp from "./components/sign-in-component/SignInSignUp";
@@ -65,6 +66,7 @@ function App() {
             path="/freelancer/page2"
             element={<FreeLancerComponentTwo />}
           />
+          <Route path="/find-gigs" element={<FindGigsLandingPage />} />
         </Routes>
       </Router>
     </div>
