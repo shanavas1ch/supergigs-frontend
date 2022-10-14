@@ -1,7 +1,11 @@
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { sigInReset, signIn } from "../../reducers/sigin_reducer";
 import SignInBannerComponent from "../banner-component/SignInBannerComponent";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -11,9 +15,36 @@ function SignInSignUp() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [signInDetails, setSignInDetails] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+
+  const signInValue = useSelector((state) => state.signIn.value);
+  console.log("SignIN >>", signInValue);
+  useEffect(() => {
+    console.log(signInValue);
+
+    if (signInValue.signInSuccess) {
+      console.log("inside if");
+      fetch(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signInValue.userDetails),
+      })
+        .then((response) => response)
+        .then((data) => {
+          if (data.status === 401) {
+            toast.error("Username or Password is incorrect");
+          }
+          if (data.status === 200) {
+            navigate("/find-gigs");
+          }
+        });
+    }
+  }, [signInValue]);
   const navigate = useNavigate();
   const handleSignUpClick = () => {
     if (showSignIn) {
@@ -26,41 +57,11 @@ function SignInSignUp() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    userLogin(signInDetails);
+
     // setShowSuccess(true);
     // setShowSignIn(false);
     // setShowSignUp(false);
     navigate("/freelancer/page1");
-  };
-  const handleTextChange = (e) => {
-    setSignInDetails({
-      ...signInDetails,
-      username: e.target.value,
-    });
-    setSignInDetails({
-      ...signInDetails,
-      password: e.target.value,
-    });
-  };
-  const userLogin = (credentials) => {
-    fetch(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        credentials,
-      }),
-    })
-      .then((response) => response)
-      .then((data) => {
-        if (data.status === 401) {
-          alert("user doesn't exist!");
-        }
-        if (data.status === 200) {
-          alert("successfully logged in!");
-        }
-      });
   };
 
   return (
@@ -105,11 +106,7 @@ function SignInSignUp() {
                 //   // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
                 //   clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com"
                 // >
-                <SignIn
-                  handleSignUpClick={handleSignUpClick}
-                  handleSubmit={handleSubmit}
-                  handleTextChange={handleTextChange}
-                />
+                <SignIn />
                 // </GoogleOAuthProvider>
               )}
               {showSignUp && <SignUp handleSignUpClick={handleSignUpClick} />}

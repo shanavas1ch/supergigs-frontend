@@ -10,7 +10,7 @@ function Section1() {
       <div className="d-flex">
         <div className="col-sm-12 col-md-1 col-lg-1"></div>
         <div className="col-sm-12 col-md-2 col-lg-2">
-          <img src={bannerImage1} alt="bannerImage1" height={"40%"} />
+          <img src={bannerImage1} alt="bannerImage1" className="img-fluid" />
         </div>
         <div className="col-sm-12 col-md-6 col-lg-6">
           <h3 className="banner-heading text-center">
@@ -65,7 +65,7 @@ function Section1() {
         </div>
 
         <div className="col-sm-12 col-md-2 col-lg-2">
-          <img src={bannerImage1} alt="bannerImage1" height={"40%"} />
+          <img src={bannerImage1} alt="bannerImage1" className="img-fluid" />
         </div>
         <div className="col-sm-12 col-md-1 col-lg-1"></div>
       </div>

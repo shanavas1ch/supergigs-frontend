@@ -17,10 +17,10 @@ function Page1Section1() {
 
   const [iconPosition, setIconPosition] = useState(0);
 
-  let progress = 10;
+  let progress = 50;
 
   useEffect(() => {
-    setIconPosition(progress - 7);
+    setIconPosition(progress - 4);
   }, [iconPosition, progress]);
 
   return (
@@ -43,7 +43,12 @@ function Page1Section1() {
         <div>
           <img
             className={"loader-superman-size"}
-            style={{ position: "relative", left: iconPosition + "%" }}
+            style={{
+              position: "relative",
+              left: iconPosition + "%",
+              bottom: "19px",
+              transform: "rotate(-36deg)",
+            }}
             src={loaderSuperman}
           />{" "}
         </div>

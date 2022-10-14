@@ -1,14 +1,19 @@
 // import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
+import { useRef } from "react";
 import { Button } from "react-bootstrap";
 import GoogleLogin from "react-google-login";
 import { FaGoogle, FaLinkedinIn, FaTimes } from "react-icons/fa";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { Link, useNavigate } from "react-router-dom";
 import "./signin.css";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { signIn } from "../../reducers/sigin_reducer";
 
-function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
+function SignIn({ handleSignUpClick, handleTextChange }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const onSuccess = (e) => {
     console.log("Google Login Success >>", e);
   };
@@ -35,7 +40,27 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
   const handleSignClick = () => {
     navigate("/find-gigs");
   };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (e) => {
+    console.log(e);
+    dispatch(
+      signIn({
+        userDetails: e,
+        signInSuccess: true,
+      })
+    );
 
+    // let email = e.target[0].value;
+    // let password = e.target[1].value;
+    // let rememberMe = e.target[2].checked;
+    // console.table(email, password, rememberMe);
+    // console.log(emailRef.current.value);
+  };
   return (
     <div className="pt-5 mt-5">
       {" "}
@@ -113,24 +138,45 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
         <span>or</span>
       </p>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-3">
             <label className="pb-1 signIn-font"> Email address</label>
             <input
-              type="email"
+              type="text"
+              name="email"
               className="form-control"
               placeholder="Enter Email Id"
-              onChange={handleTextChange}
+              {...register("username", {
+                required: "Email Id is required",
+                pattern: {
+                  value: /\S+@\S+\.\S+/,
+                  message: "Entered value does not match email format",
+                },
+              })}
             />
+            {errors.email && (
+              <span className="text-danger smaller-text" role="alert">
+                {errors.email.message}
+              </span>
+            )}
           </div>
+
           <div className="mb-3">
             <label className="pb-1 signIn-font">Password</label>
             <input
               type="password"
+              name="password"
               className="form-control"
               placeholder="Enter password"
-              onChange={handleTextChange}
+              {...register("password", {
+                required: "Password is required",
+              })}
             />
+            {errors.password && (
+              <span className="text-danger smaller-text" role="alert">
+                {errors.password.message}
+              </span>
+            )}
           </div>
           <div className="mb-3">
             <div className="custom-control custom-checkbox">
@@ -143,7 +189,7 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
                 <label className="custom-control-label ps-1 signIn-font">
                   <span className="align-center-rememberme">Remember me</span>
                 </label>
-                <p className="forgot-password signIn-font text-right float-end">
+                <p className="forgot-password signIn-font text-right float-end cursor-pointer">
                   Forgot password?
                 </p>
               </div>
@@ -153,7 +199,6 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
             <button
               type="submit"
               className="btn btn-primary button-basic signin"
-              onClick={handleSignClick}
             >
               SIGN IN
             </button>
