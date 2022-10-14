@@ -53,6 +53,84 @@
           "metadata": {}
         }
       }
-    }
+    },
+
+    "freelancerProfile":[
+
+      {
+
+        "organization":"Microsoft Coroporation Limited.",
+        "role": "UI/UX Desingner",
+        "location": "Bengaluru",
+        "rate" : "$25/Hour",
+        "daysLeft": "6"
+
+      },
+      {
+
+        "organization":"Google",
+        "role": "Full Stack Developer",
+        "location": "Chennai",
+        "rate" : "$21/Hour",
+        "daysLeft": "3"
+
+      },
+      {
+
+        "organization":"Tesla Inc.",
+        "role": "Cloud Engineer",
+        "location": "Silicon Valley",
+        "rate" : "$35/Hour",
+        "daysLeft": "6"
+
+      },
+      {
+
+        "organization":"Siemens",
+        "role": "Full Stack Developer",
+        "location": "Chennai",
+        "rate" : "$25/Hour",
+        "daysLeft": "10"
+
+      },
+      {
+
+        "organization":"Microsoft Coroporation Limited.",
+        "role": "Solution Architect",
+        "location": "Bengaluru",
+        "rate" : "$20/Hour",
+        "daysLeft": "1"
+
+      },
+      {
+
+        "organization":"1CloudHub",
+        "role": "UI/UX Developer",
+        "location": "Chennai",
+        "rate" : "$25/Hour",
+        "daysLeft": "10"
+
+      },
+      {
+
+        "organization":"1CloudHub",
+        "role": "Backend Developer",
+        "location": "Chennai",
+        "rate" : "$25/Hour",
+        "daysLeft": "6"
+
+      },
+      {
+
+        "organization":"1CloudHub",
+        "role": "Full Stack Developer",
+        "location": "Chennai",
+        "rate" : "$25/Hour",
+        "daysLeft": "6"
+
+      }
+      
+
+    ] 
   
 }
