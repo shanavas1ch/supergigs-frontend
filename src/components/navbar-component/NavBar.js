@@ -1,8 +1,26 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { Navbar, Nav, NavDropdown, Container, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import navLogo from "../../assets/navLogo.png";
+import { logout_call } from "../../reducers/sigin_reducer";
 function NavBar() {
+  const [getSignInstatus, setGetSignInstatus] = useState();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const logout = () => {
+    localStorage.removeItem("signIn_success");
+    dispatch(logout_call());
+    navigate("/");
+  };
+  let signupBoolean = localStorage.getItem("signIn_success");
+
+  useEffect(() => {
+    console.log(signupBoolean);
+  }, []);
   return (
     <div className="nav-height shadow">
       <Navbar className="nav-height" collapseOnSelect expand="lg">
@@ -27,11 +45,34 @@ function NavBar() {
                 </Button>
               </Nav.Link>
               <Nav.Link eventKey={2}>
-                <Link to="/signin">
-                  <Button className="button-basic signin" variant="primary">
-                    Sign In
-                  </Button>
-                </Link>
+                {signupBoolean === "true" ? (
+                  <>
+                    <NavDropdown
+                      title={<FaUserCircle />}
+                      id="collasible-nav-dropdown"
+                    >
+                      {/* <NavDropdown.Item href="#action/3.1">
+                        Ajay Prasad
+                      </NavDropdown.Item>
+
+                      <NavDropdown.Item href="#action/3.3">
+                        ajayprasad@gmail.com
+                      </NavDropdown.Item> */}
+                      {/* <NavDropdown.Divider /> */}
+                      <NavDropdown.Item onClick={logout}>
+                        Logout
+                      </NavDropdown.Item>
+                    </NavDropdown>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/signin">
+                      <Button className="button-basic signin" variant="primary">
+                        Sign In
+                      </Button>
+                    </Link>
+                  </>
+                )}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

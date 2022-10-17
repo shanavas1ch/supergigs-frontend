@@ -1,6 +1,6 @@
-import {React,useEffect, useState} from "react";
+import { React, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { BsFillCheckCircleFill ,BsXCircleFill } from "react-icons/bs";
+import { BsFillCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
 import { useLocation } from "react-router-dom";
 function Page1Section2() {
@@ -9,22 +9,23 @@ function Page1Section2() {
   const [firstName, setFirstName] = useState();
   const [lastName, setLastName] = useState();
   const [bio, setBio] = useState();
-  const [emailAddress,setEmailAddress] = useState();
+  const [emailAddress, setEmailAddress] = useState();
   const [phoneNo, setPhoneNo] = useState();
   const [isEmailVerified, setIsEmailVerified] = useState();
   useEffect(() => {
-      setUserSignUpData(state ? state : {});
-      if(state){
-        setFirstName(state && state.userData.attributes.profile.firstName );
-        setLastName(state && state.userData.attributes.profile.lastName );
-        setBio(state && state.userData.attributes.profile.bio);
-        setEmailAddress(state && state.userData.attributes.email );
-        setPhoneNo(state && state.userData.attributes.profile.protectedData.phoneNumber );
-        setIsEmailVerified(state && state.userData.attributes.emailVerified);
-      }
-      
+    setUserSignUpData(state ? state : {});
+    if (state) {
+      setFirstName(state && state.userData.attributes.profile.firstName);
+      setLastName(state && state.userData.attributes.profile.lastName);
+      setBio(state && state.userData.attributes.profile.bio);
+      setEmailAddress(state && state.userData.attributes.email);
+      setPhoneNo(
+        state && state.userData.attributes.profile.protectedData.phoneNumber
+      );
+      setIsEmailVerified(state && state.userData.attributes.emailVerified);
+    }
   }, []);
-  
+
   return (
     <div>
       <section>
@@ -40,7 +41,7 @@ function Page1Section2() {
                   className="form-control "
                   placeholder="first name"
                   value={firstName}
-                  onChange= {(e) => { 
+                  onChange={(e) => {
                     setFirstName(e.target.value);
                   }}
                 />
@@ -54,7 +55,7 @@ function Page1Section2() {
                   className="form-control "
                   placeholder="first name"
                   value={lastName}
-                  onChange= {(e) => {
+                  onChange={(e) => {
                     setLastName(e.target.value);
                   }}
                 />
@@ -83,11 +84,15 @@ function Page1Section2() {
                 <small className="signIn-font">Bio</small>
               </div>
               <div className="text-area-div">
-                <textarea className=" form-control w-100" value={bio} onChange = {(e) => {
-                  setBio(e.target.value);
-                }}></textarea>
+                <textarea
+                  className=" form-control w-100"
+                  value={bio}
+                  onChange={(e) => {
+                    setBio(e.target.value);
+                  }}
+                ></textarea>
               </div>
-            </div> 
+            </div>
             <div className="pt-3 others d-flex justify-content-between">
               <label className="pb-1 signIn-font w-50  margin-right ">
                 {" "}
@@ -100,24 +105,26 @@ function Page1Section2() {
                   onChange={(e) => {
                     setEmailAddress(e.target.value);
                   }}
-                 />
-
-                
+                />
               </label>
-              {isEmailVerified ? (<> 
-                <div className="pt-3 d-flex verified">
-                <BsFillCheckCircleFill className="verified-success " /> &nbsp;{" "}
-                <p className="smaller-text verified-success">verified</p>
-              </div>
-              </>) : (<> 
-                <div className="pt-3 d-flex verified">
-                <BsXCircleFill className="verified-failure " /> &nbsp;{" "}
-                <p className="smaller-text verified-failure">yet to be verified</p>
-              </div>
-              </>)}
-              
-
-              
+              {isEmailVerified ? (
+                <>
+                  <div className="pt-3 d-flex verified">
+                    <BsFillCheckCircleFill className="verified-success " />{" "}
+                    &nbsp;{" "}
+                    <p className="smaller-text verified-success">verified</p>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="pt-3 d-flex verified">
+                    <BsXCircleFill className="verified-failure " /> &nbsp;{" "}
+                    <p className="smaller-text verified-failure">
+                      yet to be verified
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
             <div className=" phone-number pt-3 d-flex justify-content-between">
               <label className="pb-1 signIn-font w-50  margin-right ">
@@ -131,16 +138,15 @@ function Page1Section2() {
                   onChange={(e) => {
                     setPhoneNo(e.target.value);
                   }}
-
                 />
               </label>
               <div className="pt-3">
-                <Button
+                {/* <Button
                   className="button-basic signin w-100 upload-font-size"
                   variant="primary"
                 >
                   Verify
-                </Button>
+                </Button> */}
               </div>
             </div>
           </form>

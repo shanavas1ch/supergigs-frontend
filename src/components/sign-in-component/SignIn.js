@@ -1,15 +1,15 @@
 // import { useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import React from "react";
-import { useRef } from "react";
 import { Button } from "react-bootstrap";
-import GoogleLogin from "react-google-login";
+import { useForm } from "react-hook-form";
 import { FaGoogle, FaLinkedinIn, FaTimes } from "react-icons/fa";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
-import { Link, useNavigate } from "react-router-dom";
-import "./signin.css";
-import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { signIn } from "../../reducers/sigin_reducer";
+import { Link, useNavigate } from "react-router-dom";
+import { signIn, signInCall } from "../../reducers/sigin_reducer";
+import { signInURL } from "../../service/httpUrl";
+import "./signin.css";
 
 function SignIn({ handleSignUpClick, handleTextChange }) {
   const navigate = useNavigate();
@@ -21,14 +21,14 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
     console.log("Google Login Failure >>", e);
   };
 
-  // const login = useGoogleLogin({
-  //   onSuccess: (codeResponse) => console.log(codeResponse),
-  //   onError: (error) => {
-  //     console.log(error);
-  //   },
-  // });
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => console.log(codeResponse),
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const { linkedInLogin } = useLinkedIn({
-    clientId: "86vhj2q7ukf83q",
+    clientId: "86rzr5gb2xe60u",
     redirectUri: `${window.location.origin}/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
     onSuccess: (code) => {
       console.log(code);
@@ -48,18 +48,10 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
   } = useForm();
   const onSubmit = (e) => {
     console.log(e);
-    dispatch(
-      signIn({
-        userDetails: e,
-        signInSuccess: true,
-      })
-    );
-
-    // let email = e.target[0].value;
-    // let password = e.target[1].value;
-    // let rememberMe = e.target[2].checked;
-    // console.table(email, password, rememberMe);
-    // console.log(emailRef.current.value);
+    dispatch(signInCall(signInURL, e));
+  };
+  const googleSignIn = () => {
+    window.open("http://localhost:3500/auth/google", "__self");
   };
   return (
     <div className="pt-5 mt-5">
@@ -84,25 +76,24 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
           <span className="font-align-center">Login using LinkedIn</span>
         </Button>
 
-        {/* <Button
+        <Button
           className="signin-button-google float-end"
           variant="primary"
-          onClick={login}
+          onClick={googleSignIn}
         >
           <FaGoogle className="" />
           &nbsp; <span className="font-align-center">Login using Google</span>
-        </Button> */}
-        <div className="col">
+        </Button>
+        {/* <div className="col">
           <GoogleLogin
             onSuccess={onSuccess}
-            clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com"
             onFailure={onFailure}
             cookiePolicy={"single_host_origin"}
             render={(renderProps) => (
               <Button
                 className="signin-button-google w-100"
                 variant="primary"
-                onClick={renderProps.onClick}
+                onClick={login}
               >
                 <FaGoogle className="" />
                 &nbsp;{" "}
@@ -110,7 +101,7 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
               </Button>
             )}
           />
-        </div>
+        </div> */}
         {/* </GoogleOAuthProvider> */}
         {/* <Button className="signin-button-google float-end" variant="primary">
           <FaGoogle className="" />
@@ -154,9 +145,9 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
                 },
               })}
             />
-            {errors.email && (
+            {errors.username && (
               <span className="text-danger smaller-text" role="alert">
-                {errors.email.message}
+                {errors.username.message}
               </span>
             )}
           </div>

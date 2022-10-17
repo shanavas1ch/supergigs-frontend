@@ -14,39 +14,19 @@ function SignInSignUp() {
   const [showSignIn, setShowSignIn] = useState(true);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
-  const [signInDetails, setSignInDetails] = useState({
-    email: "",
-    password: "",
-  });
-  const dispatch = useDispatch();
 
   const signInValue = useSelector((state) => state.signIn.value);
   console.log("SignIN >>", signInValue);
   useEffect(() => {
     console.log(signInValue);
-
     if (signInValue.signInSuccess) {
-      console.log("inside if");
-      fetch(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signInValue.userDetails),
-      })
-        .then((response) => response)
-        .then((data) => {
-          if (data.status === 401) {
-            toast.error("Username or Password is incorrect");
-          }
-          if (data.status === 200) {
-            navigate("/find-gigs");
-          }
-        });
+      navigate("/find-gigs");
+    } else {
     }
   }, [signInValue]);
   const navigate = useNavigate();
-  const handleSignUpClick = () => {
+  const handleSignUpClick = (e) => {
+    console.log(e);
     if (showSignIn) {
       setShowSignUp(!showSignUp);
       setShowSignIn(!showSignIn);
@@ -54,14 +34,6 @@ function SignInSignUp() {
       setShowSignUp(!showSignUp);
       setShowSignIn(!showSignIn);
     }
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // setShowSuccess(true);
-    // setShowSignIn(false);
-    // setShowSignUp(false);
-    navigate("/freelancer/page1");
   };
 
   return (
@@ -102,12 +74,12 @@ function SignInSignUp() {
             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"></div>
             <div className="col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
               {showSignIn && (
-                // <GoogleOAuthProvider
-                //   // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
-                //   clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com"
-                // >
-                <SignIn />
-                // </GoogleOAuthProvider>
+                <GoogleOAuthProvider
+                  // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
+                  clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com"
+                >
+                  <SignIn handleSignUpClick={handleSignUpClick} />
+                </GoogleOAuthProvider>
               )}
               {showSignUp && <SignUp handleSignUpClick={handleSignUpClick} />}
             </div>

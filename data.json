@@ -17,120 +17,100 @@
     "name": "typicode"
   },
 
-    "data": {
-      "id": "3c073fae-6172-4e75-8b92-f560d58cd47c",
-      "type": "currentUser",
-      "attributes": {
-        "banned": false,
-        "deleted": false,
-        "createdAt": "2018-03-28T09:12:58.866Z",
-        "email": "joe.dunphy@example.com",
-        "emailVerified": false,
-        "pendingEmail": null,
-        "stripeConnected": false,
-        "stripePayoutsEnabled": false,
-        "stripeChargesEnabled": false,
-        "identityProviders": {
-          "facebook": {
-            "userId": "11223344"
-          }
-        },
-        "profile": {
-          "firstName": "Joe",
-          "lastName": "Dunphy",
-          "displayName": "Dunphy Co.",
-          "abbreviatedName": "JD",
-          "bio": "Hello, I am Joe.",
-          "publicData": {
-            "age": 27
-          },
-          "protectedData": {
-            "phoneNumber": "+1-202-555-5555"
-          },
-          "privateData": {
-            "discoveredServiceVia": "Twitter"
-          },
-          "metadata": {}
+  "data": {
+    "id": "3c073fae-6172-4e75-8b92-f560d58cd47c",
+    "type": "currentUser",
+    "attributes": {
+      "banned": false,
+      "deleted": false,
+      "createdAt": "2018-03-28T09:12:58.866Z",
+      "email": "shanavas@1cloudhub.com",
+      "emailVerified": false,
+      "pendingEmail": null,
+      "stripeConnected": false,
+      "stripePayoutsEnabled": false,
+      "stripeChargesEnabled": false,
+      "identityProviders": {
+        "facebook": {
+          "userId": "11223344"
         }
+      },
+      "profile": {
+        "firstName": "shanavas",
+        "lastName": "AJ",
+        "displayName": "Shanavas AJ",
+        "abbreviatedName": "JD",
+        "bio": "Hello, I am Shanavas AJ. Working as a Software Developer at OneCloudHub Technologies.",
+        "publicData": {
+          "age": 27
+        },
+        "protectedData": {
+          "phoneNumber": "+1-202-555-5555"
+        },
+        "privateData": {
+          "discoveredServiceVia": "Twitter"
+        },
+        "metadata": {}
       }
+    }
+  },
+
+  "freelancerProfile": [
+    {
+      "organization": "Microsoft Coroporation Limited.",
+      "role": "UI/UX Desingner",
+      "location": "Bengaluru",
+      "rate": "$25/Hour",
+      "daysLeft": "6"
     },
-
-    "freelancerProfile":[
-
-      {
-
-        "organization":"Microsoft Coroporation Limited.",
-        "role": "UI/UX Desingner",
-        "location": "Bengaluru",
-        "rate" : "$25/Hour",
-        "daysLeft": "6"
-
-      },
-      {
-
-        "organization":"Google",
-        "role": "Full Stack Developer",
-        "location": "Chennai",
-        "rate" : "$21/Hour",
-        "daysLeft": "3"
-
-      },
-      {
-
-        "organization":"Tesla Inc.",
-        "role": "Cloud Engineer",
-        "location": "Silicon Valley",
-        "rate" : "$35/Hour",
-        "daysLeft": "6"
-
-      },
-      {
-
-        "organization":"Siemens",
-        "role": "Full Stack Developer",
-        "location": "Chennai",
-        "rate" : "$25/Hour",
-        "daysLeft": "10"
-
-      },
-      {
-
-        "organization":"Microsoft Coroporation Limited.",
-        "role": "Solution Architect",
-        "location": "Bengaluru",
-        "rate" : "$20/Hour",
-        "daysLeft": "1"
-
-      },
-      {
-
-        "organization":"1CloudHub",
-        "role": "UI/UX Developer",
-        "location": "Chennai",
-        "rate" : "$25/Hour",
-        "daysLeft": "10"
-
-      },
-      {
-
-        "organization":"1CloudHub",
-        "role": "Backend Developer",
-        "location": "Chennai",
-        "rate" : "$25/Hour",
-        "daysLeft": "6"
-
-      },
-      {
-
-        "organization":"1CloudHub",
-        "role": "Full Stack Developer",
-        "location": "Chennai",
-        "rate" : "$25/Hour",
-        "daysLeft": "6"
-
-      }
-      
-
-    ] 
-  
+    {
+      "organization": "Google",
+      "role": "Full Stack Developer",
+      "location": "Chennai",
+      "rate": "$21/Hour",
+      "daysLeft": "3"
+    },
+    {
+      "organization": "Tesla Inc.",
+      "role": "Cloud Engineer",
+      "location": "Silicon Valley",
+      "rate": "$35/Hour",
+      "daysLeft": "6"
+    },
+    {
+      "organization": "Siemens",
+      "role": "Full Stack Developer",
+      "location": "Chennai",
+      "rate": "$25/Hour",
+      "daysLeft": "10"
+    },
+    {
+      "organization": "Microsoft Coroporation Limited.",
+      "role": "Solution Architect",
+      "location": "Bengaluru",
+      "rate": "$20/Hour",
+      "daysLeft": "1"
+    },
+    {
+      "organization": "1CloudHub",
+      "role": "UI/UX Developer",
+      "location": "Chennai",
+      "rate": "$25/Hour",
+      "daysLeft": "10"
+    },
+    {
+      "organization": "1CloudHub",
+      "role": "Backend Developer",
+      "location": "Chennai",
+      "rate": "$25/Hour",
+      "daysLeft": "6"
+    },
+    {
+      "organization": "1CloudHub",
+      "role": "Full Stack Developer",
+      "location": "Chennai",
+      "rate": "$25/Hour",
+      "daysLeft": "6"
+    }
+  ]
 }

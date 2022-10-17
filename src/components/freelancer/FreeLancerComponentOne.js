@@ -15,7 +15,7 @@ function FreeLancerComponentOne(props) {
 
   useEffect(() => {
     console.log(props);
-  },[])
+  }, []);
   return (
     <div>
       <NavBar />
@@ -35,7 +35,10 @@ function FreeLancerComponentOne(props) {
                   <br />
 
                   <div className="save-and-continue d-flex flex-row-reverse">
-                    <p onClick={handleClickSave} className="smaller-text">
+                    <p
+                      onClick={handleClickSave}
+                      className="smaller-text cursor-pointer font-weight-600 "
+                    >
                       SAVE & CONTINUE&nbsp;
                       <BiRightArrowAlt />
                     </p>

@@ -5,19 +5,13 @@ import { useDispatch } from "react-redux";
 import { startAction } from "../../../actions/sampleactions";
 import gLoadingOne from "../../../assets/g-loading-1.png";
 import imageIcon from "../../../assets/image-icon.png";
-import "../../../App.css";
 import loaderSuperman from "../../../assets/loader-superman.png";
 function Page1Section1() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(startAction("check")).then((resp) => {
-      console.log(resp);
-    });
-  }, []);
 
   const [iconPosition, setIconPosition] = useState(0);
 
-  let progress = 50;
+  let progress = 10;
 
   useEffect(() => {
     setIconPosition(progress - 4);
@@ -34,8 +28,8 @@ function Page1Section1() {
           </h5>
         </div>
         <div className="profile-completion d-flex justify-content-between">
-          <p className="smaller-text">Profile Completion Progress</p>
-          <small>{progress}%</small>
+          <p className="smaller-text mb-2">Profile Completion Progress</p>
+          <small className="smaller-text mb-2">{progress}%</small>
         </div>
         <div className="progress-bar">
           <ProgressBar now={progress} />

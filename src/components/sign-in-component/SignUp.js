@@ -89,7 +89,6 @@ function SignUp({ handleSignUpClick }) {
                   </small>
                 </Card>
               </Button>
-              {/* </div> */}
             </div>
 
             {classForGigs == "show-active-gigs" ||
