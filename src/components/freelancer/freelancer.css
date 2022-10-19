@@ -12,7 +12,7 @@
   padding-top: 1rem;
 }
 .progress-bar {
-  padding-bottom: 1rem;
+  padding-bottom: 0rem;
 }
 .progress {
   height: 0.3rem;
@@ -39,3 +39,7 @@ img.g-loading {
   border-radius: 50%;
   float: right;
 }
+.loader-superman-size{
+  height: 0.8rem;
+}
+

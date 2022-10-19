@@ -9,8 +9,8 @@ function Page2Section2() {
   return (
     <div>
       <section>
-        <div className="progress-bar pt-4">
-          <ProgressBar now={50} />
+        <div className="progress-bar pt-3 pb-2">
+          <ProgressBar now={10} />
         </div>
         <h5 className="freelance-heading">Your Freelancing Journey</h5>
         <p className="smaller-text pt-1 pb-1">

@@ -1,50 +1,26 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap";
 import React, { useEffect, useState } from "react";
-import "./App.css";
-import NavBar from "./components/navbar-component/NavBar";
-import Footer from "./components/footer-component/Footer";
-import MainComponent from "./components/main-component/MainComponent";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LandingPage from "./pages/LandingPage/LandingPage";
-import FreeLancerComponentOne from "./components/freelancer/FreeLancerComponentOne";
-import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { startAction } from "./actions/sampleactions";
+import "./App.css";
+import FindGigsLandingPage from "./components/find-gigs/FindGigsLandingPage";
+import FreeLancerComponentOne from "./components/freelancer/FreeLancerComponentOne";
 import FreeLancerComponentTwo from "./components/freelancer/FreeLancerComponentTwo";
-import SignUp from "./components/sign-in-component/SignUp";
 import SignInSignUp from "./components/sign-in-component/SignInSignUp";
+import SignUp from "./components/sign-in-component/SignUp";
+
+import LandingPage from "./pages/LandingPage/LandingPage";
+import { sam } from "./reducers/sampleone";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [res, setResp] = useState([]);
-  const [resOne, setRespOne] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
-    const che = dispatch(startAction("check"));
-    console.log("che : ", che);
-    // fetch("http://localhost:5000/comments")
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log(response);
-    //     setResp(response);
-    //   });
-    // fetch("http://localhost:3500/api")
-    //   .then((response) => {
-    //     // console.log(response.text());
-    //     return response.text();
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     setRespOne(response);
-    //   });
-    // fetch("http://localhost:3500/api/one")
-    //   .then((response) => {
-    //     // console.log(response.text());
-    //     return response.json();
-    //   })
-    //   .then((response) => {
-    //     console.log(response);
-    //     setResp(response);
-    //   });
+    dispatch(startAction("check")).then((resp) => {});
+    const res = dispatch(sam({ value: "check" }));
   }, []);
   return (
     <div>
@@ -61,8 +37,10 @@ function App() {
             path="/freelancer/page2"
             element={<FreeLancerComponentTwo />}
           />
+          <Route path="/find-gigs" element={<FindGigsLandingPage />} />
         </Routes>
       </Router>
+      <ToastContainer />
     </div>
   );
 }

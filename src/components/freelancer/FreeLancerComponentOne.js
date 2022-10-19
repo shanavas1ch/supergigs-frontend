@@ -5,12 +5,17 @@ import { BiRightArrowAlt } from "react-icons/bi";
 import Page1Section1 from "../../pages/freelancer/Page1/Page1Section1";
 import Page1Section2 from "../../pages/freelancer/Page1/Page1Section2";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-function FreeLancerComponentOne() {
+function FreeLancerComponentOne(props) {
   const navigate = useNavigate();
   const handleClickSave = () => {
     navigate("/freelancer/page2");
   };
+
+  useEffect(() => {
+    console.log(props);
+  }, []);
   return (
     <div>
       <NavBar />
@@ -30,7 +35,10 @@ function FreeLancerComponentOne() {
                   <br />
 
                   <div className="save-and-continue d-flex flex-row-reverse">
-                    <p onClick={handleClickSave} className="smaller-text">
+                    <p
+                      onClick={handleClickSave}
+                      className="smaller-text cursor-pointer font-weight-600 "
+                    >
                       SAVE & CONTINUE&nbsp;
                       <BiRightArrowAlt />
                     </p>

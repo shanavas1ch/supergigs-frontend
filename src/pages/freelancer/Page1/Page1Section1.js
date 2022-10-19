@@ -1,9 +1,22 @@
-import React from "react";
+import { useEffect } from "react";
+import { React, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { startAction } from "../../../actions/sampleactions";
 import gLoadingOne from "../../../assets/g-loading-1.png";
 import imageIcon from "../../../assets/image-icon.png";
-
+import loaderSuperman from "../../../assets/loader-superman.png";
 function Page1Section1() {
+  const dispatch = useDispatch();
+
+  const [iconPosition, setIconPosition] = useState(0);
+
+  let progress = 10;
+
+  useEffect(() => {
+    setIconPosition(progress - 4);
+  }, [iconPosition, progress]);
+
   return (
     <div>
       {" "}
@@ -15,13 +28,25 @@ function Page1Section1() {
           </h5>
         </div>
         <div className="profile-completion d-flex justify-content-between">
-          <p className="smaller-text">Profile Completion Progress</p>
-          <small>10%</small>
+          <p className="smaller-text mb-2">Profile Completion Progress</p>
+          <small className="smaller-text mb-2">{progress}%</small>
         </div>
         <div className="progress-bar">
-          <ProgressBar now={10} />
+          <ProgressBar now={progress} />
         </div>
-        <div className="bread-crumb-menu">
+        <div>
+          <img
+            className={"loader-superman-size"}
+            style={{
+              position: "relative",
+              left: iconPosition + "%",
+              bottom: "19px",
+              transform: "rotate(-36deg)",
+            }}
+            src={loaderSuperman}
+          />{" "}
+        </div>
+        <div className="bread-crumb-menu mt-2">
           <div>
             <div className="mt-2">
               <div className="d-flex">

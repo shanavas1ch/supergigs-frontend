@@ -27,7 +27,7 @@ function FreeLancerComponentTwo() {
                   <div className="d-flex justify-content-between">
                     <div className="back d-flex ">
                       <Link to="/freelancer/page1">
-                        <p className="smaller-text">
+                        <p className="smaller-text cursor-pointer font-weight-600 ">
                           <BiArrowBack />
                           &nbsp; BACK
                         </p>
@@ -35,7 +35,7 @@ function FreeLancerComponentTwo() {
                     </div>
 
                     <div className="save-and-continue d-flex flex-row-reverse">
-                      <p className="smaller-text">
+                      <p className="smaller-text cursor-pointer font-weight-600 ">
                         SAVE & CONTINUE&nbsp;
                         <BiRightArrowAlt />
                       </p>
