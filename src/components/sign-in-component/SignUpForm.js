@@ -25,6 +25,11 @@ function SignUpForm() {
       });
   };
 
+  const googleSignIn = () => {
+    window.open("http://localhost:3500/auth/google", "__self");
+
+    fetch()
+  };
   const onSubmit = (e) => {
     console.log(e);
 
@@ -44,10 +49,12 @@ function SignUpForm() {
             <Button
               className="signin-button-google float-end"
               variant="primary"
+              onClick={googleSignIn}
             >
               <FaGoogle className="" />
               &nbsp;{" "}
               <span className="font-align-center">Login using Google</span>
+             
             </Button>
           </div>
           <p className="separator-line">
@@ -130,6 +137,7 @@ function SignUpForm() {
                 <button
                   type="submit"
                   className="btn btn-primary button-basic signin"
+                 
                 >
                   SIGN UP
                 </button>

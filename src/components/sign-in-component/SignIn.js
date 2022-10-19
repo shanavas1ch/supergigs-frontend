@@ -1,5 +1,6 @@
 // import { useGoogleLogin } from "@react-oauth/google";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -51,7 +52,14 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
     dispatch(signInCall(signInURL, e));
   };
   const googleSignIn = () => {
-    window.open("http://localhost:3500/auth/google", "__self");
+
+    window.open("http://localhost:3500/auth/google/signin", "__self");
+    //     axios.post("http://localhost:3500/google/login")
+
+    // .then((response) => {
+
+    //   console.log(response);
+    // })
   };
   return (
     <div className="pt-5 mt-5">
