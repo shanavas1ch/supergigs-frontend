@@ -24,7 +24,7 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
     },
   });
   const { linkedInLogin } = useLinkedIn({
-    clientId: "86vhj2q7ukf83q",
+    clientId: "8644tgrwzw20xi",
     redirectUri: `${window.location.origin}/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
     onSuccess: (code) => {
       console.log(code);
@@ -71,14 +71,14 @@ function SignIn({ handleSignUpClick, handleSubmit, handleTextChange }) {
           <FaGoogle className="" />
           &nbsp; <span className="font-align-center">Login using Google</span>
         </Button>
-        <GoogleLogin
+        {/* <GoogleLogin
           // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
 
           onSuccess={onSuccess}
           onFailure={onFailure}
           cookiePolicy={"single_host_origin"}
           size="100px"
-        />
+        /> */}
         {/* </GoogleOAuthProvider> */}
         {/* <Button className="signin-button-google float-end" variant="primary">
           <FaGoogle className="" />

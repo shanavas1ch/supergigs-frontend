@@ -11,6 +11,8 @@ import FreeLancerComponentOne from "./components/freelancer/FreeLancerComponentO
 import { useDispatch } from "react-redux";
 import { startAction } from "./actions/sampleactions";
 import FreeLancerComponentTwo from "./components/freelancer/FreeLancerComponentTwo";
+import SignUp from "./components/sign-in-component/SignUp";
+import SignInSignUp from "./components/sign-in-component/SignInSignUp";
 
 function App() {
   const [res, setResp] = useState([]);
