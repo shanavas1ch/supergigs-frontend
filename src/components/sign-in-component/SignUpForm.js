@@ -92,6 +92,22 @@ function SignUpForm() {
                 )}
               </div>
               <div className="mb-3">
+                <label className="pb-1 signIn-font">Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  placeholder="Enter password"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                />
+                {errors.password && (
+                  <span className="text-danger smaller-text" role="alert">
+                    {errors.password.message}
+                  </span>
+                )}
+              </div>
+              <div className="mb-3">
                 <div className="custom-control custom-checkbox">
                   <div>
                     <input
