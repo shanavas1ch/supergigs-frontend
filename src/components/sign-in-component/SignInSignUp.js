@@ -73,15 +73,13 @@ function SignInSignUp() {
           <div className="d-flex ">
             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"></div>
             <div className="col-sm-12 col-md-8 col-lg-8 col-xl-8 ">
-              {showSignIn && (
-                <GoogleOAuthProvider
-                  // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
-                  clientId="637570065678-jlt07711go3864ss5p118r3d73aedt1p.apps.googleusercontent.com"
-                >
-                  <SignIn handleSignUpClick={handleSignUpClick} />
-                </GoogleOAuthProvider>
-              )}
-              {showSignUp && <SignUp handleSignUpClick={handleSignUpClick} />}
+              <GoogleOAuthProvider
+                // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
+                clientId="381986969505-9pv9f2j17kii7spheulmhnll36mhsh00.apps.googleusercontent.com"
+              >
+                {showSignIn && <SignIn handleSignUpClick={handleSignUpClick} />}
+                {showSignUp && <SignUp handleSignUpClick={handleSignUpClick} />}
+              </GoogleOAuthProvider>
             </div>
             <div className="col-sm-12 col-md-2 col-lg-2 col-xl-2"></div>
           </div>

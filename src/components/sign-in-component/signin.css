@@ -53,3 +53,9 @@
 .success-fontsize {
   font-size: 1.2rem;
 }
+.google-iframe-button-hidden {
+  position: fixed;
+  top: 31%;
+  left: 73%;
+  opacity: 0;
+}

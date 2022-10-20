@@ -68,7 +68,7 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
       </div>
       <div className="pt-3 pb-3 row">
         <Button
-          className="col signin-button-linkedin margin-right"
+          className="col-md-6 col-lg-6 signin-button-linkedin margin-right"
           variant="primary"
           onClick={linkedInLogin}
         >
@@ -76,14 +76,27 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
           <span className="font-align-center">Login using LinkedIn</span>
         </Button>
 
-        <Button
+        {/* <Button
           className="signin-button-google float-end"
           variant="primary"
           onClick={googleSignIn}
         >
           <FaGoogle className="" />
           &nbsp; <span className="font-align-center">Login using Google</span>
-        </Button>
+        </Button> */}
+        <div className="col-md-6 col-lg-6 d-flex justify-content-center">
+          {/* <Button className="signin-button-google float-end" variant="primary">
+            <FaGoogle className="" />
+            &nbsp; <span className="font-align-center">Login using Google</span>
+          </Button> */}
+          <GoogleLogin
+            className="gooogle"
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+          />
+        </div>
+
         {/* <div className="col">
           <GoogleLogin
             onSuccess={onSuccess}

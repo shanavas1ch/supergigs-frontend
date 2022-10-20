@@ -4,6 +4,9 @@ import { FaGoogle, FaLinkedinIn } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
+import { useLinkedIn } from "react-linkedin-login-oauth2";
 
 function SignUpForm() {
   const [userSignUpData, setUserSignUpData] = useState();
@@ -24,7 +27,35 @@ function SignUpForm() {
         navigate("/freelancer/page1", { state: { userData: response } });
       });
   };
+  const onSuccess = (e) => {
+    console.log("Google Login Success >>", e);
 
+    axios
+      .post("http://localhost:3500/api/signup/google", { token: e.credential })
+      .then((response) => {
+        console.log(response);
+      });
+  };
+  const onFailure = (e) => {
+    console.log("Google Login Failure >>", e);
+  };
+  const { linkedInLogin } = useLinkedIn({
+    clientId: "86rzr5gb2xe60u",
+    redirectUri: `${window.location.origin}/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
+    onSuccess: (code) => {
+      console.log(code);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => console.log(codeResponse),
+    onError: (error) => {
+      console.log(error);
+    },
+  });
   const onSubmit = (e) => {
     console.log(e);
 
@@ -35,20 +66,77 @@ function SignUpForm() {
       {" "}
       <div className="signinform pt-4">
         <div className="signup-active-form-wrapper">
-          <div className="">
-            <Button className="signin-button-linkedin" variant="primary">
+          <div className="pt-3 pb-3 row">
+            <Button
+              className="col-md-6 col-lg-6 signin-button-linkedin margin-right"
+              variant="primary"
+              onClick={linkedInLogin}
+            >
               <FaLinkedinIn className="" /> &nbsp;
               <span className="font-align-center">Login using LinkedIn</span>
             </Button>
 
-            <Button
-              className="signin-button-google float-end"
-              variant="primary"
-            >
-              <FaGoogle className="" />
-              &nbsp;{" "}
-              <span className="font-align-center">Login using Google</span>
-            </Button>
+            {/* <Button
+          className="signin-button-google float-end"
+          variant="primary"
+          onClick={googleSignIn}
+        >
+          <FaGoogle className="" />
+          &nbsp; <span className="font-align-center">Login using Google</span>
+        </Button> */}
+            <div className="col-md-6 col-lg-6 d-flex justify-content-center">
+              {/* <Button className="signin-button-google float-end" variant="primary">
+            <FaGoogle className="" />
+            &nbsp; <span className="font-align-center">Login using Google</span>
+          </Button> */}
+              <GoogleLogin
+                className="gooogle"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={"single_host_origin"}
+              />
+            </div>
+
+            {/* <div className="col">
+          <GoogleLogin
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+            render={(renderProps) => (
+              <Button
+                className="signin-button-google w-100"
+                variant="primary"
+                onClick={login}
+              >
+                <FaGoogle className="" />
+                &nbsp;{" "}
+                <span className="font-align-center">Login using Google</span>
+              </Button>
+            )}
+          />
+        </div> */}
+            {/* </GoogleOAuthProvider> */}
+            {/* <Button className="signin-button-google float-end" variant="primary">
+          <FaGoogle className="" />
+          &nbsp; <span className="font-align-center">Login using Google</span>
+        </Button> */}
+
+            {/* <GoogleOAuthProvider
+          clientId="381986969505-9pv9f2j17kii7spheulmhnll36mhsh00.apps.googleusercontent.com"
+          buttonText="shanavas"
+        >
+          <GoogleLogin
+            // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
+            onSuccess={onSuccess}
+            onFailure={onFailure}
+            cookiePolicy={"single_host_origin"}
+            render={(renderProps) => (
+              <>
+                <button style={{ color: "red", background: "red" }}></button>
+              </>
+            )}
+          />
+        </GoogleOAuthProvider> */}
           </div>
           <p className="separator-line">
             <span>or</span>
@@ -76,7 +164,7 @@ function SignUpForm() {
                 )}
               </div>
               <div className="mb-3">
-                <label className="pb-1 signIn-font">Password</label>
+                <label className="pb-1 signIn-font">New Password</label>
                 <input
                   type="password"
                   className="form-control"
@@ -97,13 +185,13 @@ function SignUpForm() {
                   type="password"
                   className="form-control"
                   placeholder="Enter password"
-                  {...register("password", {
-                    required: "Password is required",
+                  {...register("confirmpassword", {
+                    required: "Confirm Password is required",
                   })}
                 />
-                {errors.password && (
+                {errors.confirmpassword && (
                   <span className="text-danger smaller-text" role="alert">
-                    {errors.password.message}
+                    {errors.confirmpassword.message}
                   </span>
                 )}
               </div>
@@ -114,15 +202,13 @@ function SignUpForm() {
                       type="checkbox"
                       className="custom-control-input"
                       id="customCheck1"
+                      defaultChecked
                     />
                     <label className="custom-control-label ps-1 signIn-font">
                       <span className="align-center-rememberme">
                         I agree <strong>Terms and Conditions</strong>
                       </span>
                     </label>
-                    <p className="forgot-password signIn-font text-right float-end">
-                      Forgot password?
-                    </p>
                   </div>
                 </div>
               </div>
