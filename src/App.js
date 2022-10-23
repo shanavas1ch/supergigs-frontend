@@ -15,6 +15,7 @@ import SignUp from "./components/sign-in-component/SignUp";
 import LandingPage from "./pages/LandingPage/LandingPage";
 import { sam } from "./reducers/sampleone";
 import "react-toastify/dist/ReactToastify.css";
+import VerifyEmail from "./components/sign-in-component/VerifyEmail";
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
             element={<FreeLancerComponentTwo />}
           />
           <Route path="/find-gigs" element={<FindGigsLandingPage />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
         </Routes>
       </Router>
       <ToastContainer />

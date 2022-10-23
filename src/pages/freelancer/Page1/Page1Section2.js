@@ -12,8 +12,10 @@ function Page1Section2() {
   const [emailAddress, setEmailAddress] = useState();
   const [phoneNo, setPhoneNo] = useState();
   const [isEmailVerified, setIsEmailVerified] = useState();
+
+  let token = "";
   useEffect(() => {
-    setUserSignUpData(state ? state : {});
+    // setUserSignUpData(state ? state : {});
     if (state) {
       setFirstName(state && state.userData.attributes.profile.firstName);
       setLastName(state && state.userData.attributes.profile.lastName);
@@ -24,8 +26,34 @@ function Page1Section2() {
       );
       setIsEmailVerified(state && state.userData.attributes.emailVerified);
     }
+
+    token = localStorage.getItem("accessToken");
+
+    fetchUserDetails();
   }, []);
 
+  const fetchUserDetails = () => {
+
+    fetch("http://localhost:3500/currentuser",{
+    
+      method: 'GET', 
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+
+        if(data.login === "success"){
+
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
   return (
     <div>
       <section>

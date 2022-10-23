@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
+import { useDispatch } from "react-redux";
+import { signUpURL } from "../../service/httpUrl";
 
 function SignUpForm() {
   const [userSignUpData, setUserSignUpData] = useState();
@@ -17,24 +19,31 @@ function SignUpForm() {
     watch,
     formState: { errors },
   } = useForm();
-
-  const userSignUp = () => {
-    fetch("http://localhost:4000/data")
-      .then((response) => response.json())
-      .then((response) => {
-        setUserSignUpData(response);
-        localStorage.setItem("signIn_success", true);
-        navigate("/freelancer/page1", { state: { userData: response } });
-      });
-  };
+  const dispatch = useDispatch();
   const onSuccess = (e) => {
     console.log("Google Login Success >>", e);
 
-    axios
-      .post("http://localhost:3500/api/signup/google", { token: e.credential })
-      .then((response) => {
-        console.log(response);
-      });
+    // axios
+    //   .post("http://localhost:3500/api/signup/google", { token: e.credential })
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
+
+    fetch("http://localhost:3500/api/signup/google", {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+
+      token: e.credential
+      }),
+
+    }).then((response) => response.json())
+    .then((data) => {
+      console.log('Success:', data);
+    
+    })
   };
   const onFailure = (e) => {
     console.log("Google Login Failure >>", e);
@@ -58,12 +67,59 @@ function SignUpForm() {
   });
   const onSubmit = (e) => {
     console.log(e);
+    // dispatch(signUpCall(signUpURL, e));
+    // fetch(`${process.env.REACT_APP_LOCAL_HOST_URL}` + signUpURL, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(e),
+    // })
+    //   .then((response) => console.log(response.json()))
+    //   .then((resp) => console.log(resp))
+    //   .catch((e) => console.log(e));
 
-    userSignUp(e);
+console.log(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/signup`);
+    fetch("http://localhost:3500/api/signup",{
+    
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+
+        username: e.username,
+        password: e.password,
+        firstName: e.firstName,
+        lastName : e.lastName
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+
+        if(data.login === "success"){
+let email = data.signUpResponse.data.data.attributes.email;
+let accessToken = data.loginResponse.data.access_token;
+let refreshToken = data.loginResponse.data.refresh_token;
+localStorage.setItem("email",email);
+localStorage.setItem('accessToken',accessToken);
+localStorage.setItem('refreshToken',refreshToken);
+
+
+
+navigate("/freelancer/page1");
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+
   };
   return (
     <div>
-      {" "}
+
       <div className="signinform pt-4">
         <div className="signup-active-form-wrapper">
           <div className="pt-3 pb-3 row">
@@ -141,60 +197,115 @@ function SignUpForm() {
           <p className="separator-line">
             <span>or</span>
           </p>
-          <div>
+          <div className="mt-2">
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
-                <label className="pb-1 signIn-font"> Email address</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  placeholder="Enter Email Id"
-                  {...register("username", {
-                    required: "Email Id is required",
-                    pattern: {
-                      value: /\S+@\S+\.\S+/,
-                      message: "Entered value does not match email format",
-                    },
-                  })}
-                />
-                {errors.username && (
-                  <span className="text-danger smaller-text" role="alert">
-                    {errors.username.message}
-                  </span>
-                )}
+                <div className="row">
+                  <div className="col">
+                    <label className="pb-1 signIn-font asterisk">
+                      {" "}
+                      First Name{" "}
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter first name"
+                      {...register("firstName", {
+                        required: "First Name is required",
+                      })}
+                    />
+                    {errors.firstName && (
+                      <span className="text-danger smaller-text" role="alert">
+                        {errors.firstName.message}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col">
+                    <label className="pb-1 signIn-font asterisk">
+                      {" "}
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Enter Last Name"
+                      {...register("lastName", {
+                        required: "Last Name is required",
+                      })}
+                    />
+                    {errors.lastName && (
+                      <span className="text-danger smaller-text" role="alert">
+                        {errors.lastName.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className="mt-2">
+                  <label className="pb-1 signIn-font asterisk">
+                    {" "}
+                    Email address
+                  </label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    placeholder="Enter Email Id"
+                    {...register("username", {
+                      required: "Email Id is required",
+                      pattern: {
+                        value: /\S+@\S+\.\S+/,
+                        message: "Entered value does not match email format",
+                      },
+                    })}
+                  />
+                  {errors.username && (
+                    <span className="text-danger smaller-text" role="alert">
+                      {errors.username.message}
+                    </span>
+                  )}
+                </div>
               </div>
+
               <div className="mb-3">
-                <label className="pb-1 signIn-font">New Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Enter password"
-                  {...register("password", {
-                    required: "Password is required",
-                  })}
-                />
-                {errors.password && (
-                  <span className="text-danger smaller-text" role="alert">
-                    {errors.password.message}
-                  </span>
-                )}
+                <div className="row">
+                  <div className="col">
+                    <label className="pb-1 signIn-font asterisk">
+                      New Password
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="Enter password"
+                      {...register("password", {
+                        required: "Password is required",
+                      })}
+                    />
+                    {errors.password && (
+                      <span className="text-danger smaller-text" role="alert">
+                        {errors.password.message}
+                      </span>
+                    )}
+                  </div>
+                  <div className="col">
+                    <label className="pb-1 signIn-font asterisk">
+                      Confirm Password
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      placeholder="Enter password"
+                      {...register("confirmpassword", {
+                        required: "Confirm Password is required",
+                      })}
+                    />
+                    {errors.confirmpassword && (
+                      <span className="text-danger smaller-text" role="alert">
+                        {errors.confirmpassword.message}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="mb-3">
-                <label className="pb-1 signIn-font">Confirm Password</label>
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="Enter password"
-                  {...register("confirmpassword", {
-                    required: "Confirm Password is required",
-                  })}
-                />
-                {errors.confirmpassword && (
-                  <span className="text-danger smaller-text" role="alert">
-                    {errors.confirmpassword.message}
-                  </span>
-                )}
-              </div>
+
               <div className="mb-3">
                 <div className="custom-control custom-checkbox">
                   <div>
