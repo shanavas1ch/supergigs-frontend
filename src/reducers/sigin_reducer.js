@@ -19,10 +19,13 @@ const signInReducer = createSlice({
     logout_call: (state) => {
       state.value = initialState;
     },
+    siginInInitial: (state) => {
+      state.value = initialState;
+    },
   },
 });
 
-export const { signIn, logout_call } = signInReducer.actions;
+export const { signIn, logout_call, siginInInitial } = signInReducer.actions;
 
 export default signInReducer.reducer;
 
@@ -39,7 +42,7 @@ export const signInCall = (url, data) => async (dispatch) => {
         localStorage.setItem("signIn_success", true);
       })
       .catch((error) => {
-        toast.error(error);
+        dispatch(signIn({ error: error, signInError: true }));
       });
   } catch (e) {
     return console.error(e.message);

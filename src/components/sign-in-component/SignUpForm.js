@@ -30,20 +30,18 @@ function SignUpForm() {
     //   });
 
     fetch("http://localhost:3500/api/signup/google", {
-      method: 'POST', 
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-
-      token: e.credential
+        token: e.credential,
       }),
-
-    }).then((response) => response.json())
-    .then((data) => {
-      console.log('Success:', data);
-    
     })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      });
   };
   const onFailure = (e) => {
     console.log("Google Login Failure >>", e);
@@ -80,46 +78,43 @@ function SignUpForm() {
     //   .then((resp) => console.log(resp))
     //   .catch((e) => console.log(e));
 
-console.log(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/signup`);
-    fetch("http://localhost:3500/api/signup",{
-    
-      method: 'POST', 
+    console.log(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/signup`);
+    localStorage.setItem("username", e.username);
+    localStorage.setItem("password", e.password);
+
+    fetch("http://localhost:3500/api/signup", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-
         username: e.username,
         password: e.password,
         firstName: e.firstName,
-        lastName : e.lastName
+        lastName: e.lastName,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Success:', data);
+        console.log("Success:", data);
 
-        if(data.login === "success"){
-let email = data.signUpResponse.data.data.attributes.email;
-let accessToken = data.loginResponse.data.access_token;
-let refreshToken = data.loginResponse.data.refresh_token;
-localStorage.setItem("email",email);
-localStorage.setItem('accessToken',accessToken);
-localStorage.setItem('refreshToken',refreshToken);
+        if (data.login === "success") {
+          let email = data.signUpResponse.data.data.attributes.email;
+          let accessToken = data.loginResponse.data.access_token;
+          let refreshToken = data.loginResponse.data.refresh_token;
+          localStorage.setItem("email", email);
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
 
-
-
-navigate("/freelancer/page1");
+          navigate("/freelancer/page1");
         }
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
-
   };
   return (
     <div>
-
       <div className="signinform pt-4">
         <div className="signup-active-form-wrapper">
           <div className="pt-3 pb-3 row">

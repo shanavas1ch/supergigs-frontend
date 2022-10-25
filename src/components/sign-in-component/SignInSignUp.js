@@ -5,7 +5,11 @@ import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { sigInReset, signIn } from "../../reducers/sigin_reducer";
+import {
+  siginInInitial,
+  sigInReset,
+  signIn,
+} from "../../reducers/sigin_reducer";
 import SignInBannerComponent from "../banner-component/SignInBannerComponent";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -16,12 +20,16 @@ function SignInSignUp() {
   const [showSignUp, setShowSignUp] = useState(false);
 
   const signInValue = useSelector((state) => state.signIn.value);
+  const dispatch = useDispatch();
   console.log("SignIN >>", signInValue);
+
   useEffect(() => {
     console.log(signInValue);
+    dispatch(siginInInitial());
     if (signInValue.signInSuccess) {
       navigate("/find-gigs");
-    } else {
+    } else if (signInValue.signInError) {
+      toast.error("Invalid Username and Password");
     }
   }, [signInValue]);
   const navigate = useNavigate();
