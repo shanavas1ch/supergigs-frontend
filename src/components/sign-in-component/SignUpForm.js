@@ -9,6 +9,7 @@ import axios from "axios";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useDispatch } from "react-redux";
 import { signUpURL } from "../../service/httpUrl";
+import { toast } from "react-toastify";
 
 function SignUpForm() {
   const [userSignUpData, setUserSignUpData] = useState();
@@ -105,8 +106,11 @@ function SignUpForm() {
           localStorage.setItem("email", email);
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
+          localStorage.setItem("signIn_success", true);
 
           navigate("/freelancer/page1");
+        } else if (data.status === 409) {
+          toast.warn("email already exist");
         }
       })
       .catch((error) => {

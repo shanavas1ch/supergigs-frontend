@@ -49,6 +49,9 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
   } = useForm();
   const onSubmit = (e) => {
     console.log(e);
+    localStorage.setItem("username", e.username);
+    localStorage.setItem("password", e.password);
+
     dispatch(signInCall(signInURL, e));
   };
   const googleSignIn = () => {

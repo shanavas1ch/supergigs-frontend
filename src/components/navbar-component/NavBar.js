@@ -17,7 +17,7 @@ function NavBar() {
     navigate("/");
   };
   let signupBoolean = localStorage.getItem("signIn_success");
-
+  let username = localStorage.getItem("username");
   useEffect(() => {
     console.log(signupBoolean);
   }, []);
@@ -51,13 +51,13 @@ function NavBar() {
                       title={<FaUserCircle />}
                       id="collasible-nav-dropdown"
                     >
-                      {/* <NavDropdown.Item href="#action/3.1">
-                        Ajay Prasad
+                      <NavDropdown.Item href="#action/3.1">
+                        {username}
                       </NavDropdown.Item>
 
-                      <NavDropdown.Item href="#action/3.3">
-                        ajayprasad@gmail.com
-                      </NavDropdown.Item> */}
+                      <NavDropdown.Item>
+                        <Link to="/freelancer/page1">profile Settings</Link>
+                      </NavDropdown.Item>
                       {/* <NavDropdown.Divider /> */}
                       <NavDropdown.Item onClick={logout}>
                         Logout
