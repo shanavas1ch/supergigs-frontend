@@ -10,6 +10,8 @@ import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useDispatch } from "react-redux";
 import { signUpURL } from "../../service/httpUrl";
 import { toast } from "react-toastify";
+import jwtDecode from "jwt-decode";
+import { useRef } from "react";
 
 function SignUpForm() {
   const [userSignUpData, setUserSignUpData] = useState();
@@ -23,27 +25,37 @@ function SignUpForm() {
   const dispatch = useDispatch();
   const onSuccess = (e) => {
     console.log("Google Login Success >>", e);
-
-    // axios
-    //   .post("http://localhost:3500/api/signup/google", { token: e.credential })
-    //   .then((response) => {
-    //     console.log(response);
-    //   });
-
-    fetch("http://localhost:3500/api/signup/google", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    var token = e.credential;
+    var decoded = jwtDecode(token);
+    console.log(decoded);
+    localStorage.setItem("username", decoded.email);
+    axios
+      .post("http://localhost:3500/api/signup/google", {
         token: e.credential,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+        clientId: e.clientId,
+      })
+      .then((response) => {
+        console.log(response);
+        if (response.status == 200) {
+          let accessToken = response.data.access_token;
+          let refreshToken = response.data.refresh_token;
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+          localStorage.setItem("signIn_success", true);
+          navigate("/freelancer/page1");
+        }
+      })
+      .catch((error) => {
+        console.log("err", error);
+        if (error.response.status == 409) {
+          toast.error("Email Already Exist");
+        }
       });
   };
+
+  const password = useRef({});
+  password.current = watch("password", "");
+
   const onFailure = (e) => {
     console.log("Google Login Failure >>", e);
   };
@@ -58,63 +70,37 @@ function SignUpForm() {
     },
   });
 
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => console.log(codeResponse),
-    onError: (error) => {
-      console.log(error);
-    },
-  });
   const onSubmit = (e) => {
     console.log(e);
-    // dispatch(signUpCall(signUpURL, e));
-    // fetch(`${process.env.REACT_APP_LOCAL_HOST_URL}` + signUpURL, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(e),
-    // })
-    //   .then((response) => console.log(response.json()))
-    //   .then((resp) => console.log(resp))
-    //   .catch((e) => console.log(e));
 
     console.log(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/signup`);
     localStorage.setItem("username", e.username);
     localStorage.setItem("password", e.password);
-
-    fetch("http://localhost:3500/api/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    axios
+      .post("http://localhost:3500/api/signup", {
         username: e.username,
         password: e.password,
         firstName: e.firstName,
         lastName: e.lastName,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-
-        if (data.login === "success") {
-          let email = data.signUpResponse.data.data.attributes.email;
-          let accessToken = data.loginResponse.data.access_token;
-          let refreshToken = data.loginResponse.data.refresh_token;
-          localStorage.setItem("email", email);
+      })
+      .then((response) => {
+        console.log(response.data.data.access_token);
+        if (response.status == 200) {
+          let accessToken = response.data.data.access_token;
+          let refreshToken = response.data.data.refresh_token;
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("signIn_success", true);
-
           navigate("/freelancer/page1");
-        } else if (data.status === 409) {
+        } else if (response.status === 409) {
           toast.warn("email already exist");
         }
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.log("err", error);
+        if (error.response.status == 409) {
+          toast.error("Email Already Exist");
+        }
       });
   };
   return (
@@ -276,6 +262,11 @@ function SignUpForm() {
                       placeholder="Enter password"
                       {...register("password", {
                         required: "Password is required",
+
+                        minLength: {
+                          value: 8,
+                          message: "Password must have at least 8 characters",
+                        },
                       })}
                     />
                     {errors.password && (
@@ -294,6 +285,13 @@ function SignUpForm() {
                       placeholder="Enter password"
                       {...register("confirmpassword", {
                         required: "Confirm Password is required",
+                        minLength: {
+                          value: 8,
+                          message: "Password must have at least 8 characters",
+                        },
+                        validate: (value) =>
+                          value === password.current ||
+                          "The passwords do not match",
                       })}
                     />
                     {errors.confirmpassword && (

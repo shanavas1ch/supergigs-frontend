@@ -8,15 +8,55 @@ import { FaGoogle, FaLinkedinIn, FaTimes } from "react-icons/fa";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { signIn, signInCall } from "../../reducers/sigin_reducer";
 import { signInURL } from "../../service/httpUrl";
 import "./signin.css";
+import jwtDecode from "jwt-decode";
 
 function SignIn({ handleSignUpClick, handleTextChange }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const onSuccess = (e) => {
     console.log("Google Login Success >>", e);
+    var token = e.credential;
+    var decoded = jwtDecode(token);
+    console.log(decoded);
+
+    localStorage.setItem("username", decoded.email);
+    fetch("http://localhost:3500/api/login/google", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        token: e.credential,
+        clientId: e.clientId,
+      }),
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status == 401) {
+          toast.error("Unauthorized User, Please SignUp first");
+          return;
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        console.log("Success sigin :", data);
+        if (data.status == 200) {
+          let accessToken = data.loginResponse.access_token;
+          let refreshToken = data.loginResponse.refresh_token;
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+          localStorage.setItem("signIn_success", true);
+          navigate("/find-gigs");
+        }
+      })
+      .catch((error) => {
+        console.log(error.status);
+      });
   };
   const onFailure = (e) => {
     console.log("Google Login Failure >>", e);
