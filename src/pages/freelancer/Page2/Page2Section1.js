@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import gLoadingOne from "../../../assets/g-loading-1.png";
 import imageIcon from "../../../assets/image-icon.png";
 import loaderSuperman from "../../../assets/loader-superman.png";
@@ -42,65 +43,50 @@ function Page2Section1() {
         </div>
         <div className="bread-crumb-menu">
           <div>
-            <div className="mt-2">
-              <div className="d-flex">
-                <div className="d-block">
-                  <div>
-                    <img
-                      src={imageIcon}
-                      alt="image-icon"
-                      className="image-icon"
-                    />
+            <Link to="/freelancer/page1">
+              <div className="mt-2">
+                <div className="d-flex">
+                  <div className="d-block">
+                    <div>
+                      <img
+                        src={imageIcon}
+                        alt="image-icon"
+                        className="image-icon"
+                      />
+                    </div>
+                    <div className="vl ms-1"> </div>
                   </div>
-                  <div className="vl ms-1"> </div>
-                </div>
 
-                <div className="ms-3">
-                  <div>
-                    <span>Personal Information</span>
+                  <div className="ms-3">
+                    <div>
+                      <span>Personal Information</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2">
-              <div className="d-flex">
-                <div className="d-block">
-                  <div>
-                    <img
-                      src={imageIcon}
-                      alt="image-icon"
-                      className="image-icon"
-                    />
+            </Link>
+            <Link to="/freelancer/page2">
+              <div className="mt-2">
+                <div className="d-flex">
+                  <div className="d-block">
+                    <div>
+                      <img
+                        src={imageIcon}
+                        alt="image-icon"
+                        className="image-icon"
+                      />
+                    </div>
+                    <div className=" ms-1"> </div>
                   </div>
-                  <div className="vl ms-1"> </div>
-                </div>
 
-                <div className="ms-3">
-                  <div>
-                    <span>Professional Information</span>
+                  <div className="ms-3">
+                    <div>
+                      <span>Professional Information</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2">
-              <div className="d-flex">
-                <div className="d-block">
-                  <div>
-                    <img
-                      src={imageIcon}
-                      alt="image-icon"
-                      className="image-icon"
-                    />
-                  </div>
-                </div>
-
-                <div className="ms-3">
-                  <div>
-                    <span>Rate on your profile</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </Link>
           </div>
         </div>
         <br />

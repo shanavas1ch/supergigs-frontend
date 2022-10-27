@@ -1,65 +1,87 @@
+import axios from "axios";
 import { React, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { BiArrowBack, BiRightArrowAlt } from "react-icons/bi";
 import { BsFillCheckCircleFill, BsXCircleFill } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 function Page1Section2() {
-  const { state } = useLocation();
-  const [userSignUpData, setUserSignUpData] = useState();
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [bio, setBio] = useState();
-  const [emailAddress, setEmailAddress] = useState();
-  const [phoneNo, setPhoneNo] = useState();
-  const [isEmailVerified, setIsEmailVerified] = useState();
+  const [userDetails, setUserDetails] = useState({
+    firstName: "",
+    lastName: "",
+    bio: "base",
+    emailAddress: "",
+    phoneNo: "",
+    isEmailVerified: false,
+  });
 
   let token = "";
+  token = localStorage.getItem("accessToken");
+  console.log("token >>", token);
+  const navigate = useNavigate();
   useEffect(() => {
-    // setUserSignUpData(state ? state : {});
-    if (state) {
-      setFirstName(state && state.userData.attributes.profile.firstName);
-      setLastName(state && state.userData.attributes.profile.lastName);
-      setBio(state && state.userData.attributes.profile.bio);
-      setEmailAddress(state && state.userData.attributes.email);
-      setPhoneNo(
-        state && state.userData.attributes.profile.protectedData.phoneNumber
-      );
-      setIsEmailVerified(state && state.userData.attributes.emailVerified);
-    }
+    axios
+      .get("https://flex-api.sharetribe.com/v1/api/current_user/show", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log("Success:", response.data.data.attributes.profile);
 
-    token = localStorage.getItem("accessToken");
-
-    fetchUserDetails();
-  }, []);
-
-  const fetchUserDetails = () => {
-
-    fetch("http://localhost:3500/currentuser",{
-    
-      method: 'GET', 
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('Success:', data);
-
-        if(data.login === "success"){
-
-        }
+        setUserDetails((prevState) => ({
+          ...prevState,
+          firstName: response.data.data.attributes.profile.firstName,
+          lastName: response.data.data.attributes.profile.lastName,
+          bio: response.data.data.attributes.profile.bio,
+          emailAddress: response.data.data.attributes.email,
+          phoneNo:
+            response.data.data.attributes.profile.protectedData.phoneNumber,
+          isEmailVerified: response.data.data.attributes.emailVerified,
+        }));
       })
       .catch((error) => {
-        console.error('Error:', error);
+        console.error("Error:", error);
       });
-  }
+  }, []);
+  const onSubmit = (e) => {
+    console.log(userDetails);
+    console.log(token);
+    axios
+      .post(
+        "https://flex-api.sharetribe.com/v1/api/current_user/update_profile",
+        {
+          firstName: userDetails.firstName,
+          bio: userDetails.bio,
+          publicData: userDetails,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        console.log("Success:", response);
+        navigate("/freelancer/page2");
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+  const handleChangeData = ({ target: { name, value } }) => {
+    setUserDetails((prevState) => ({ ...prevState, [name]: value }));
+  };
+
   return (
     <div>
       <section>
         <h5 className="super-gigs-heading ">Your Basic Details</h5>
         <div className="form-wrapper">
-          <form>
+          <form onSubmit={onSubmit}>
             <div className="d-flex">
               <label className="pb-1 signIn-font w-100 margin-right">
                 {" "}
@@ -68,10 +90,9 @@ function Page1Section2() {
                   type="text"
                   className="form-control "
                   placeholder="first name"
-                  value={firstName}
-                  onChange={(e) => {
-                    setFirstName(e.target.value);
-                  }}
+                  name="firstName"
+                  value={userDetails.firstName}
+                  onChange={handleChangeData}
                 />
               </label>
 
@@ -82,10 +103,9 @@ function Page1Section2() {
                   type="text"
                   className="form-control "
                   placeholder="first name"
-                  value={lastName}
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
+                  name="lastName"
+                  value={userDetails.lastName}
+                  onChange={handleChangeData}
                 />
               </label>
             </div>
@@ -114,10 +134,9 @@ function Page1Section2() {
               <div className="text-area-div">
                 <textarea
                   className=" form-control w-100"
-                  value={bio}
-                  onChange={(e) => {
-                    setBio(e.target.value);
-                  }}
+                  value={userDetails.bio}
+                  name="bio"
+                  onChange={handleChangeData}
                 ></textarea>
               </div>
             </div>
@@ -129,13 +148,12 @@ function Page1Section2() {
                   type="text"
                   className="form-control border-0"
                   placeholder="email id"
-                  value={emailAddress}
-                  onChange={(e) => {
-                    setEmailAddress(e.target.value);
-                  }}
+                  value={userDetails.emailAddress}
+                  name="emailAddress"
+                  onChange={handleChangeData}
                 />
               </label>
-              {isEmailVerified ? (
+              {userDetails.isEmailVerified ? (
                 <>
                   <div className="pt-3 d-flex verified">
                     <BsFillCheckCircleFill className="verified-success " />{" "}
@@ -159,13 +177,12 @@ function Page1Section2() {
                 {" "}
                 Phone Number
                 <input
-                  type="text "
+                  type="tel"
                   className="form-control "
                   placeholder="phone number"
-                  value={phoneNo}
-                  onChange={(e) => {
-                    setPhoneNo(e.target.value);
-                  }}
+                  name="phoneNo"
+                  userDetails={userDetails.phoneNo}
+                  onChange={handleChangeData}
                 />
               </label>
               <div className="pt-3">
@@ -175,6 +192,26 @@ function Page1Section2() {
                 >
                   Verify
                 </Button> */}
+              </div>
+            </div>
+            <div className="d-flex justify-content-between mt-5">
+              <div className="back d-flex ">
+                <Link to="/find-gigs">
+                  <p className="smaller-text cursor-pointer font-weight-600 ">
+                    <BiArrowBack />
+                    &nbsp; EXIT
+                  </p>
+                </Link>
+              </div>
+
+              <div className="save-and-continue d-flex flex-row-reverse">
+                <p
+                  className="smaller-text cursor-pointer font-weight-600 "
+                  onClick={onSubmit}
+                >
+                  SAVE & CONTINUE&nbsp;
+                  <BiRightArrowAlt />
+                </p>
               </div>
             </div>
           </form>

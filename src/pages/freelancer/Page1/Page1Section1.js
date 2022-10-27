@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { React, useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { startAction } from "../../../actions/sampleactions";
 import gLoadingOne from "../../../assets/g-loading-1.png";
 import imageIcon from "../../../assets/image-icon.png";
@@ -48,47 +49,51 @@ function Page1Section1() {
         </div>
         <div className="bread-crumb-menu mt-2">
           <div>
-            <div className="mt-2">
-              <div className="d-flex">
-                <div className="d-block">
-                  <div>
-                    <img
-                      src={imageIcon}
-                      alt="image-icon"
-                      className="image-icon"
-                    />
+            <Link to="/freelancer/page1">
+              <div className="mt-2">
+                <div className="d-flex">
+                  <div className="d-block">
+                    <div>
+                      <img
+                        src={imageIcon}
+                        alt="image-icon"
+                        className="image-icon"
+                      />
+                    </div>
+                    <div className="vl ms-1"> </div>
                   </div>
-                  <div className="vl ms-1"> </div>
-                </div>
 
-                <div className="ms-3">
-                  <div>
-                    <span>Personal Information</span>
+                  <div className="ms-3">
+                    <div>
+                      <span>Personal Information</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2">
-              <div className="d-flex">
-                <div className="d-block">
-                  <div>
-                    <img
-                      src={imageIcon}
-                      alt="image-icon"
-                      className="image-icon"
-                    />
+            </Link>
+            <Link to="/freelancer/page2">
+              <div className="mt-2">
+                <div className="d-flex">
+                  <div className="d-block">
+                    <div>
+                      <img
+                        src={imageIcon}
+                        alt="image-icon"
+                        className="image-icon"
+                      />
+                    </div>
+                    <div className=" ms-1"> </div>
                   </div>
-                  <div className="vl ms-1"> </div>
-                </div>
 
-                <div className="ms-3">
-                  <div>
-                    <span>Professional Information</span>
+                  <div className="ms-3">
+                    <div>
+                      <span>Professional Information</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="mt-2">
+            </Link>
+            {/* <div className="mt-2">
               <div className="d-flex">
                 <div className="d-block">
                   <div>
@@ -106,7 +111,7 @@ function Page1Section1() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <br />

@@ -39,6 +39,10 @@ export const signInCall = (url, data) => async (dispatch) => {
       .then((response) => {
         console.log("response >", response);
         dispatch(signIn({ ...response.data, signInSuccess: true }));
+        let accessToken = response.data.data.access_token;
+        let refreshToken = response.data.data.refresh_token;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("signIn_success", true);
       })
       .catch((error) => {

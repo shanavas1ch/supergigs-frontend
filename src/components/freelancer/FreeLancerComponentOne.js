@@ -1,21 +1,15 @@
-import React from "react";
-import NavBar from "../navbar-component/NavBar";
-import "./freelancer.css";
-import { BiRightArrowAlt } from "react-icons/bi";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { BiArrowBack, BiRightArrowAlt } from "react-icons/bi";
+import { Link, useNavigate } from "react-router-dom";
 import Page1Section1 from "../../pages/freelancer/Page1/Page1Section1";
 import Page1Section2 from "../../pages/freelancer/Page1/Page1Section2";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import NavBar from "../navbar-component/NavBar";
+import "./freelancer.css";
 
 function FreeLancerComponentOne(props) {
   const navigate = useNavigate();
-  const handleClickSave = () => {
-    navigate("/freelancer/page2");
-  };
 
-  useEffect(() => {
-    console.log(props);
-  }, []);
   return (
     <div>
       <NavBar />
@@ -34,15 +28,15 @@ function FreeLancerComponentOne(props) {
                   <br />
                   <br />
 
-                  <div className="save-and-continue d-flex flex-row-reverse">
+                  {/* <div className="save-and-continue d-flex ">
                     <p
                       onClick={handleClickSave}
                       className="smaller-text cursor-pointer font-weight-600 "
                     >
-                      SAVE & CONTINUE&nbsp;
+                      SAVssssE&nbsp;
                       <BiRightArrowAlt />
                     </p>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

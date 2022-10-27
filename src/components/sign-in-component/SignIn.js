@@ -24,30 +24,16 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
     console.log(decoded);
 
     localStorage.setItem("username", decoded.email);
-    fetch("http://localhost:3500/api/login/google", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    axios
+      .post("http://localhost:3500/api/login/google", {
         token: e.credential,
         clientId: e.clientId,
-      }),
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status == 401) {
-          toast.error("Unauthorized User, Please SignUp first");
-          return;
-        } else {
-          return response.json();
-        }
       })
-      .then((data) => {
-        console.log("Success sigin :", data);
-        if (data.status == 200) {
-          let accessToken = data.loginResponse.access_token;
-          let refreshToken = data.loginResponse.refresh_token;
+      .then((response) => {
+        console.log("Success sigin :", response);
+        if (response.data.status == 200) {
+          let accessToken = response.data.data.access_token;
+          let refreshToken = response.data.data.refresh_token;
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("signIn_success", true);
@@ -55,7 +41,10 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
         }
       })
       .catch((error) => {
-        console.log(error.status);
+        console.log(error);
+        if (error.response.status === 401) {
+          toast.error("Unauthorized User");
+        }
       });
   };
   const onFailure = (e) => {
@@ -96,12 +85,6 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
   };
   const googleSignIn = () => {
     window.open("http://localhost:3500/auth/google/signin", "__self");
-    //     axios.post("http://localhost:3500/google/login")
-
-    // .then((response) => {
-
-    //   console.log(response);
-    // })
   };
   return (
     <div className="pt-5 mt-5">
