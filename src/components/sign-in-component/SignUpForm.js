@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { FaGoogle, FaLinkedinIn } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,8 @@ import { useRef } from "react";
 
 function SignUpForm() {
   const [userSignUpData, setUserSignUpData] = useState();
+  const [showSpinner, setShowSpinner] = useState(false);
+
   const navigate = useNavigate();
   const {
     register,
@@ -72,7 +74,7 @@ function SignUpForm() {
 
   const onSubmit = (e) => {
     console.log(e);
-
+    setShowSpinner(true);
     console.log(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/signup`);
     localStorage.setItem("username", e.username);
     localStorage.setItem("password", e.password);
@@ -91,6 +93,7 @@ function SignUpForm() {
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("signIn_success", true);
+          setShowSpinner(false);
           navigate("/freelancer/page1");
         } else if (response.status === 409) {
           toast.warn("email already exist");
@@ -98,6 +101,8 @@ function SignUpForm() {
       })
       .catch((error) => {
         console.log("err", error);
+        setShowSpinner(false);
+
         if (error.response.status == 409) {
           toast.error("Email Already Exist");
         }
@@ -117,19 +122,7 @@ function SignUpForm() {
               <span className="font-align-center">Login using LinkedIn</span>
             </Button>
 
-            {/* <Button
-          className="signin-button-google float-end"
-          variant="primary"
-          onClick={googleSignIn}
-        >
-          <FaGoogle className="" />
-          &nbsp; <span className="font-align-center">Login using Google</span>
-        </Button> */}
             <div className="col-md-6 col-lg-6 d-flex justify-content-center">
-              {/* <Button className="signin-button-google float-end" variant="primary">
-            <FaGoogle className="" />
-            &nbsp; <span className="font-align-center">Login using Google</span>
-          </Button> */}
               <GoogleLogin
                 className="gooogle"
                 onSuccess={onSuccess}
@@ -137,47 +130,6 @@ function SignUpForm() {
                 cookiePolicy={"single_host_origin"}
               />
             </div>
-
-            {/* <div className="col">
-          <GoogleLogin
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-            render={(renderProps) => (
-              <Button
-                className="signin-button-google w-100"
-                variant="primary"
-                onClick={login}
-              >
-                <FaGoogle className="" />
-                &nbsp;{" "}
-                <span className="font-align-center">Login using Google</span>
-              </Button>
-            )}
-          />
-        </div> */}
-            {/* </GoogleOAuthProvider> */}
-            {/* <Button className="signin-button-google float-end" variant="primary">
-          <FaGoogle className="" />
-          &nbsp; <span className="font-align-center">Login using Google</span>
-        </Button> */}
-
-            {/* <GoogleOAuthProvider
-          clientId="381986969505-9pv9f2j17kii7spheulmhnll36mhsh00.apps.googleusercontent.com"
-          buttonText="shanavas"
-        >
-          <GoogleLogin
-            // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-            render={(renderProps) => (
-              <>
-                <button style={{ color: "red", background: "red" }}></button>
-              </>
-            )}
-          />
-        </GoogleOAuthProvider> */}
           </div>
           <p className="separator-line">
             <span>or</span>
@@ -306,18 +258,27 @@ function SignUpForm() {
               <div className="mb-3">
                 <div className="custom-control custom-checkbox">
                   <div>
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id="customCheck1"
-                      defaultChecked
-                    />
                     <label className="custom-control-label ps-1 signIn-font">
+                      <input
+                        type="checkbox"
+                        className="custom-control-input "
+                        id="customCheck1"
+                        defaultChecked
+                        {...register("checkbox", {
+                          required: "please check this, if you want to proceed",
+                        })}
+                      />
+                      &nbsp;&nbsp;
                       <span className="align-center-rememberme">
                         I agree <strong>Terms and Conditions</strong>
                       </span>
                     </label>
                   </div>
+                  {errors.checkbox && (
+                    <span className="text-danger smaller-text" role="alert">
+                      {errors.checkbox.message}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="d-grid pt-2">
@@ -325,7 +286,20 @@ function SignUpForm() {
                   type="submit"
                   className="btn btn-primary button-basic signin"
                 >
-                  SIGN UP
+                  {showSpinner ? (
+                    <>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      <span className="visually-hidden">Loading...</span>
+                    </>
+                  ) : (
+                    "SIGN UP"
+                  )}
                 </button>
               </div>
             </form>

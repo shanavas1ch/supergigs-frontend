@@ -1,22 +1,25 @@
 // import { useGoogleLogin } from "@react-oauth/google";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 import React from "react";
-import { Button } from "react-bootstrap";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Button, Spinner } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { FaGoogle, FaLinkedinIn, FaTimes } from "react-icons/fa";
+import { FaLinkedinIn, FaTimes } from "react-icons/fa";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { signIn, signInCall } from "../../reducers/sigin_reducer";
+import { siginInInitial, signInCall } from "../../reducers/sigin_reducer";
 import { signInURL } from "../../service/httpUrl";
 import "./signin.css";
-import jwtDecode from "jwt-decode";
 
 function SignIn({ handleSignUpClick, handleTextChange }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showSpinner, setShowSpinner] = useState(false);
   const onSuccess = (e) => {
     console.log("Google Login Success >>", e);
     var token = e.credential;
@@ -50,13 +53,6 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
   const onFailure = (e) => {
     console.log("Google Login Failure >>", e);
   };
-
-  const login = useGoogleLogin({
-    onSuccess: (codeResponse) => console.log(codeResponse),
-    onError: (error) => {
-      console.log(error);
-    },
-  });
   const { linkedInLogin } = useLinkedIn({
     clientId: "86rzr5gb2xe60u",
     redirectUri: `${window.location.origin}/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
@@ -67,25 +63,34 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
       console.log(error);
     },
   });
-  const handleSignClick = () => {
-    navigate("/find-gigs");
-  };
+
   const {
     register,
     handleSubmit,
-    watch,
+
     formState: { errors },
   } = useForm();
+  const signInValue = useSelector((state) => state.signIn.value);
+  useEffect(() => {
+    dispatch(siginInInitial());
+    console.log(",,,,", signInValue);
+    if (signInValue.signInSuccess) {
+      console.log("if");
+      setShowSpinner(true);
+    } else if (signInValue.signInError) {
+      console.log("else");
+      setShowSpinner(false);
+    }
+  }, [signInValue]);
+
   const onSubmit = (e) => {
     console.log(e);
     localStorage.setItem("username", e.username);
     localStorage.setItem("password", e.password);
-
+    setShowSpinner(!showSpinner);
     dispatch(signInCall(signInURL, e));
   };
-  const googleSignIn = () => {
-    window.open("http://localhost:3500/auth/google/signin", "__self");
-  };
+
   return (
     <div className="pt-5 mt-5">
       {" "}
@@ -109,14 +114,6 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
           <span className="font-align-center">Login using LinkedIn</span>
         </Button>
 
-        {/* <Button
-          className="signin-button-google float-end"
-          variant="primary"
-          onClick={googleSignIn}
-        >
-          <FaGoogle className="" />
-          &nbsp; <span className="font-align-center">Login using Google</span>
-        </Button> */}
         <div className="col-md-6 col-lg-6 d-flex justify-content-center">
           {/* <Button className="signin-button-google float-end" variant="primary">
             <FaGoogle className="" />
@@ -129,47 +126,6 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
             cookiePolicy={"single_host_origin"}
           />
         </div>
-
-        {/* <div className="col">
-          <GoogleLogin
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-            render={(renderProps) => (
-              <Button
-                className="signin-button-google w-100"
-                variant="primary"
-                onClick={login}
-              >
-                <FaGoogle className="" />
-                &nbsp;{" "}
-                <span className="font-align-center">Login using Google</span>
-              </Button>
-            )}
-          />
-        </div> */}
-        {/* </GoogleOAuthProvider> */}
-        {/* <Button className="signin-button-google float-end" variant="primary">
-          <FaGoogle className="" />
-          &nbsp; <span className="font-align-center">Login using Google</span>
-        </Button> */}
-
-        {/* <GoogleOAuthProvider
-          clientId="381986969505-9pv9f2j17kii7spheulmhnll36mhsh00.apps.googleusercontent.com"
-          buttonText="shanavas"
-        >
-          <GoogleLogin
-            // clientId="1029773258537-qvh1g0qlm7tisoirjdhkdqqoier3r6vp.apps.googleusercontent.com"
-            onSuccess={onSuccess}
-            onFailure={onFailure}
-            cookiePolicy={"single_host_origin"}
-            render={(renderProps) => (
-              <>
-                <button style={{ color: "red", background: "red" }}></button>
-              </>
-            )}
-          />
-        </GoogleOAuthProvider> */}
       </div>
       <p className="separator-line">
         <span>or</span>
@@ -237,7 +193,20 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
               type="submit"
               className="btn btn-primary button-basic signin"
             >
-              SIGN IN
+              {showSpinner ? (
+                <>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="visually-hidden">Loading...</span>
+                </>
+              ) : (
+                "SIGN IN"
+              )}
             </button>
           </div>
         </form>

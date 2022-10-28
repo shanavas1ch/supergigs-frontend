@@ -34,7 +34,7 @@ export const signInCall = (url, data) => async (dispatch) => {
     // const res = await DataService.get(url, data);
     // var modifiedData = JSON.stringify(data);
     // console.log("modifedData >", modifiedData);
-    await axios
+    const apiResponse = await axios
       .post(`${process.env.REACT_APP_LOCAL_HOST_URL}` + url, data)
       .then((response) => {
         console.log("response >", response);
@@ -44,11 +44,17 @@ export const signInCall = (url, data) => async (dispatch) => {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("signIn_success", true);
+        return response;
       })
       .catch((error) => {
+        console.log("inside error");
         dispatch(signIn({ error: error, signInError: true }));
+
+        return error;
       });
+    return Promise.resolve(apiResponse);
   } catch (e) {
-    return console.error(e.message);
+    console.error(e.message);
+    return Promise.reject(e);
   }
 };
