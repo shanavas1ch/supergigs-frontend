@@ -12,7 +12,7 @@ function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const logout = () => {
-    localStorage.removeItem("signIn_success");
+    localStorage.clear();
     dispatch(logout_call());
     navigate("/");
   };

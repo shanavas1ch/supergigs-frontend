@@ -29,7 +29,7 @@ function SignInSignUp() {
     if (signInValue.signInSuccess) {
       navigate("/find-gigs");
     } else if (signInValue.signInError) {
-      toast.error("Invalid Username and Password");
+      toast.error("Unauthorized User");
     }
   }, [signInValue]);
   const navigate = useNavigate();

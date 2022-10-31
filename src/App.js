@@ -20,7 +20,7 @@ import VerifyEmail from "./components/sign-in-component/VerifyEmail";
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
-    localStorage.clear();
+    // localStorage.clear();
     dispatch(startAction("check")).then((resp) => {});
     const res = dispatch(sam({ value: "check" }));
   }, []);
