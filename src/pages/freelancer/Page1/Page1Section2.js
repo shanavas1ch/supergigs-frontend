@@ -184,7 +184,6 @@ function Page1Section2() {
                   name="phoneNo"
                   value={userDetails.phoneNo}
                   onChange={handleChangeData}
-                  ss
                 />
               </label>
               <div className="pt-3">
