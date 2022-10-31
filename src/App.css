@@ -225,3 +225,7 @@ a#collasible-nav-dropdown {
   content: " *";
   color: red;
 }
+
+.Toastify__close-button {
+  border: none !important;
+}

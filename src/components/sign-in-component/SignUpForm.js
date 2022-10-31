@@ -8,10 +8,16 @@ import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import axios from "axios";
 import { useLinkedIn } from "react-linkedin-login-oauth2";
 import { useDispatch } from "react-redux";
-import { signUpURL } from "../../service/httpUrl";
+import { googleSignUpURL, signUpURL } from "../../service/httpUrl";
 import { toast } from "react-toastify";
 import jwtDecode from "jwt-decode";
 import { useRef } from "react";
+import {
+  googleSignUp,
+  googleSignUpCall,
+  signUp,
+  signUpCall,
+} from "../../reducers/signup_reducer";
 
 function SignUpForm() {
   const [userSignUpData, setUserSignUpData] = useState();
@@ -31,26 +37,28 @@ function SignUpForm() {
     var decoded = jwtDecode(token);
     console.log(decoded);
     localStorage.setItem("username", decoded.email);
-    axios
-      .post("http://localhost:3500/api/signup/google", {
+    dispatch(
+      googleSignUpCall(googleSignUpURL, {
         token: e.credential,
         clientId: e.clientId,
       })
+    )
       .then((response) => {
         console.log(response);
         if (response.status == 200) {
-          let accessToken = response.data.access_token;
-          let refreshToken = response.data.refresh_token;
+          let accessToken = response.data.data.access_token;
+          let refreshToken = response.data.data.refresh_token;
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("signIn_success", true);
           navigate("/freelancer/page1");
+        } else if (response.status == 409) {
+          toast.warn("Email Already Exist");
         }
       })
       .catch((error) => {
         console.log("err", error);
-        if (error.response.status == 409) {
-          toast.error("Email Already Exist");
+        if (error.status == 409) {
         }
       });
   };
@@ -78,32 +86,33 @@ function SignUpForm() {
     console.log(`${process.env.REACT_APP_LOCAL_HOST_URL}/api/signup`);
     localStorage.setItem("username", e.username);
     localStorage.setItem("password", e.password);
-    axios
-      .post("http://localhost:3500/api/signup", {
+    dispatch(
+      signUpCall(signUpURL, {
         username: e.username,
         password: e.password,
         firstName: e.firstName,
         lastName: e.lastName,
       })
+    )
       .then((response) => {
-        console.log(response.data.data.access_token);
+        console.log(response);
+        setShowSpinner(false);
         if (response.status == 200) {
           let accessToken = response.data.data.access_token;
           let refreshToken = response.data.data.refresh_token;
           localStorage.setItem("accessToken", accessToken);
           localStorage.setItem("refreshToken", refreshToken);
           localStorage.setItem("signIn_success", true);
-          setShowSpinner(false);
+
           navigate("/freelancer/page1");
         } else if (response.status === 409) {
-          toast.warn("email already exist");
+          toast.warn("Email Already Exist");
         }
       })
       .catch((error) => {
         console.log("err", error);
         setShowSpinner(false);
-
-        if (error.response.status == 409) {
+        if (error.status == 409) {
           toast.error("Email Already Exist");
         }
       });

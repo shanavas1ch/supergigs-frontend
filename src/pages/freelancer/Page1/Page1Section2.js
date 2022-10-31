@@ -23,6 +23,7 @@ function Page1Section2() {
   useEffect(() => {
     axios
       .get("https://flex-api.sharetribe.com/v1/api/current_user/show", {
+        // .get("http://localhost:3500/api/currentUser", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -37,8 +38,8 @@ function Page1Section2() {
           lastName: response.data.data.attributes.profile.lastName,
           bio: response.data.data.attributes.profile.bio,
           emailAddress: response.data.data.attributes.email,
-          phoneNo:
-            response.data.data.attributes.profile.protectedData.phoneNumber,
+
+          phoneNo: response.data.data.attributes.profile.publicData.phoneNo,
           isEmailVerified: response.data.data.attributes.emailVerified,
         }));
       })
@@ -150,7 +151,7 @@ function Page1Section2() {
                   placeholder="email id"
                   value={userDetails.emailAddress}
                   name="emailAddress"
-                  onChange={handleChangeData}
+                  readOnly
                 />
               </label>
               {userDetails.isEmailVerified ? (
@@ -181,7 +182,7 @@ function Page1Section2() {
                   className="form-control "
                   placeholder="phone number"
                   name="phoneNo"
-                  userDetails={userDetails.phoneNo}
+                  value={userDetails.phoneNo}
                   onChange={handleChangeData}
                 />
               </label>
