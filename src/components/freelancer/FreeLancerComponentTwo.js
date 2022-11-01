@@ -22,25 +22,6 @@ function FreeLancerComponentTwo() {
                 <div className="col-sm-12 col-md-1 col-lg-1 col-xl-1"></div>
                 <div className="col-sm-12 col-md-7 col-lg-7 col-xl-7">
                   <Page2Section2 />
-                  <br />
-                  <br />
-                  <div className="d-flex justify-content-between">
-                    <div className="back d-flex ">
-                      <Link to="/freelancer/page1">
-                        <p className="smaller-text cursor-pointer font-weight-600 ">
-                          <BiArrowBack />
-                          &nbsp; BACK
-                        </p>
-                      </Link>
-                    </div>
-
-                    <div className="save-and-continue d-flex flex-row-reverse">
-                      <p className="smaller-text cursor-pointer font-weight-600 ">
-                        SAVE & CONTINUE&nbsp;
-                        <BiRightArrowAlt />
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

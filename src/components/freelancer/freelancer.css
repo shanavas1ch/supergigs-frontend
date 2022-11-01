@@ -39,7 +39,14 @@ img.g-loading {
   border-radius: 50%;
   float: right;
 }
-.loader-superman-size{
+.loader-superman-size {
   height: 0.8rem;
 }
-
+.pop-skills {
+  background: white;
+  color: #193689;
+  font-size: small;
+  border: 1px solid #193689 !important;
+  padding: 0.375em;
+  border-radius: 4px;
+}

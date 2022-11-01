@@ -54,13 +54,19 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
     console.log("Google Login Failure >>", e);
   };
   const { linkedInLogin } = useLinkedIn({
-    clientId: "86rzr5gb2xe60u",
-    redirectUri: `${window.location.origin}/linkedin`, // for Next.js, you can use `${typeof window === 'object' && window.location.origin}/linkedin`
+    // clientId: "86guj4dhexfa3c",
+    clientId: "8644tgrwzw20xi",
+    redirectUri: `${window.location.origin}/signin`,
     onSuccess: (code) => {
-      console.log(code);
+      console.log("success", code);
+      // setCode(code);
+      // setErrorMessage("");
     },
+    scope: "r_emailaddress r_liteprofile",
     onError: (error) => {
       console.log(error);
+      // setCode("");
+      // setErrorMessage(error.errorMessage);
     },
   });
 
@@ -73,7 +79,7 @@ function SignIn({ handleSignUpClick, handleTextChange }) {
   const signInValue = useSelector((state) => state.signIn.value);
   useEffect(() => {
     dispatch(siginInInitial());
-    console.log(",,,,", signInValue);
+    // console.log(",,,,", signInValue);
     if (signInValue.signInSuccess) {
       console.log("if");
       setShowSpinner(true);
